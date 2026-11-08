@@ -1,0 +1,116 @@
+% Preamble of main.tex: packages, page layout, theorem-like environments and macros.
+
+%% Fonts and language ---------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[english]{babel}
+
+%% Page layout ----------------------------------------------------------------
+\usepackage[
+  top=2cm,
+  bottom=2cm,
+  left=2cm,
+  right=2cm,
+  headheight=17pt,
+  includehead,includefoot,
+  heightrounded,
+]{geometry}
+\OnehalfSpacing
+
+\setsecnumdepth{subsubsection}
+\settocdepth{subsubsection}
+
+\makepagestyle{thesis}
+\makeheadrule{thesis}{\textwidth}{2pt}
+\makefootrule{thesis}{\textwidth}{1pt}{\footruleskip}
+\makeevenhead{thesis}{\small\leftmark}{}{\small Mohamed Al Mahdi Tantaoui}
+\makeoddhead{thesis}{\small\leftmark}{}{\small Mohamed Al Mahdi Tantaoui}
+\makeevenfoot{thesis}{Cadi Ayyad University}{\textbf{Page \thepage}}{M2PA}
+\makeoddfoot{thesis}{Cadi Ayyad University}{\textbf{Page \thepage}}{M2PA}
+\makeatletter
+\makepsmarks{thesis}{%
+  \createmark{chapter}{left}{shownumber}{\@chapapp\ }{. \ }%
+  \createplainmark{toc}{left}{\contentsname}%
+  \createplainmark{bib}{left}{\bibname}}
+\makeatother
+\pagestyle{thesis}
+
+%% Mathematics ----------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\sgn}{sgn}
+
+%% Figures, lists, references -------------------------------------------------
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[numbers]{natbib}
+
+%% Chapter style --------------------------------------------------------------
+\usepackage{calc}
+\newsavebox{\ChpNumBox}
+\definecolor{ChapBlue}{rgb}{0.00,0.65,0.65}
+\makeatletter
+\newcommand*{\thickhrulefill}{%
+  \leavevmode\leaders\hrule height 1\p@ \hfill \kern \z@}
+\newcommand*\BuildChpNum[2]{%
+  \begin{tabular}[t]{@{}c@{}}
+    \makebox[0pt][c]{#1\strut} \\[.5ex]
+    \colorbox{ChapBlue}{%
+      \rule[-10em]{0pt}{0pt}%
+      \rule{1ex}{0pt}\color{white}#2\strut
+      \rule{1ex}{0pt}}%
+  \end{tabular}}
+\makechapterstyle{BlueBox}{%
+  \renewcommand{\chapnamefont}{\large\scshape}
+  \renewcommand{\chapnumfont}{\Huge\bfseries}
+  \renewcommand{\chaptitlefont}{\raggedright\Huge\bfseries}
+  \setlength{\beforechapskip}{20pt}
+  \setlength{\midchapskip}{26pt}
+  \setlength{\afterchapskip}{40pt}
+  \renewcommand{\printchaptername}{}
+  \renewcommand{\chapternamenum}{}
+  \renewcommand{\printchapternum}{%
+    \sbox{\ChpNumBox}{%
+      \BuildChpNum{\chapnamefont\@chapapp}%
+      {\chapnumfont\thechapter}}}
+  \renewcommand{\printchapternonum}{%
+    \sbox{\ChpNumBox}{%
+      \BuildChpNum{\chapnamefont\vphantom{\@chapapp}}%
+      {\chapnumfont\hphantom{\thechapter}}}}
+  \renewcommand{\afterchapternum}{}
+  \renewcommand{\printchaptertitle}[1]{%
+    \usebox{\ChpNumBox}\hfill
+    \parbox[t]{\hsize-\wd\ChpNumBox-1em}{%
+      \vspace{\midchapskip}%
+      \thickhrulefill\par
+      \chaptitlefont ##1\par}}%
+}
+\makeatother
+\chapterstyle{BlueBox}
+
+%% Hyperlinks (load last) -----------------------------------------------------
+\usepackage[
+  colorlinks=true,
+  linkcolor=NavyBlue,
+  citecolor=NavyBlue,
+  urlcolor=NavyBlue,
+  pdftitle={On inhomogeneous stochastic differential equations involving local
+    times and partial differential equations with transmission condition},
+  pdfauthor={Mohamed Al Mahdi Tantaoui},
+]{hyperref}

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this thesis, please cite it as below."
+title: "On inhomogeneous stochastic differential equations involving local times and partial differential equations with transmission condition"
+authors:
+  - given-names: "Mohamed Al Mahdi"
+    family-names: "Tantaoui"
+license: CC-BY-4.0
+repository-code: "https://github.com/mtantaoui/local-times-sde-transmission"
+url: "https://github.com/mtantaoui/local-times-sde-transmission"
+keywords:
+  - local time
+  - stochastic differential equations
+  - skew Brownian motion
+  - transmission condition
+preferred-citation:
+  type: thesis
+  thesis-type: "Master's thesis"
+  title: "On inhomogeneous stochastic differential equations involving local times and partial differential equations with transmission condition"
+  authors:
+    - given-names: "Mohamed Al Mahdi"
+      family-names: "Tantaoui"
+  institution:
+    name: "Cadi Ayyad University"
+    city: "Marrakech"
+    country: "MA"
+  year: 2018
+  url: "https://github.com/mtantaoui/local-times-sde-transmission"

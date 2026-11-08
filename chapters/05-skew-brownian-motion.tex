@@ -1,0 +1,382 @@
+\chapter{Skew Brownian Motion}\label{ch:sbm}
+
+Let $\beta\in[-1,1]$. A \emph{skew Brownian motion} of parameter $\beta$
+started at $x$ is a solution of
+\begin{equation}\label{eq:sbm}
+	X_t = x + W_t + \beta\hat{L}^0_t(X),
+\end{equation}
+where $W$ is a Brownian motion and $\hat{L}^0(X)$ is the symmetric local time
+of $X$ at $0$ (Definition~\ref{def:symlocaltime}). This process was introduced
+by \citet{ItoMcKean1965} and studied by \citet{Walsh1978} and
+\citet{HarrisonShepp1981}; a detailed survey is \citet{Lejay2006}. For
+$\beta = 0$ it is a Brownian motion, and for $\beta = \pm1$ it is a reflected
+Brownian motion.
+
+When $|\beta|<1$, \eqref{eq:sbm} is the equation \eqref{eq37} of
+Chapter~\ref{ch:local-times-unknown} with $\phi\equiv1$ and
+$\nu = \beta\delta_0\in M(\mathbb{R})$, so by Theorem~\ref{th:singular} it has a
+unique strong solution, and pathwise uniqueness holds; the same is true for
+$|\beta|\leqslant1$ by \citet{HarrisonShepp1981}. It is also the equation of
+Remark~\ref{rem:alpha-sbm} with a constant coefficient. In particular $X$ is a
+strong Markov process. Throughout this chapter, $\mathbb{P}_x$ and $\E_x$
+refer to the solution started at $x$, and we write $\hat{L}_t = \hat{L}^0_t(X)$.
+
+\begin{remark}\label{rem:sbm-scale}
+	For $\nu = \beta\delta_0$ with $|\beta|<1$, the function $f_\nu$ of
+	Lemma~\ref{lem:fnu} is $f_\nu = 1$ on $]-\infty,0[$ and
+	$f_\nu = \frac{1-\beta}{1+\beta}$ on $[0,\infty[$. By
+	Proposition~\ref{prop31}, $F_\nu(X)$ is then a local martingale, where
+	\[
+		F_\nu(x) = x\,1_{\{x<0\}} + \frac{1-\beta}{1+\beta}\,x\,1_{\{x\geqslant0\}} .
+	\]
+	The slopes of this scale function satisfy
+	$(1+\beta)F'_\nu(0+) = (1-\beta)F'_\nu(0-)$; this is the transmission
+	condition that appears in Section~\ref{sec:sbm-pde}.
+\end{remark}
+
+In this chapter we follow \citet{Lejay2006} and \citet{EtoreMartinez2012}. We
+compute the joint law of $X_t$ and $\hat{L}_t$, deduce the transition density
+of $X$, and describe the partial differential equation it solves.
+
+\section{The law of skew Brownian motion}
+
+\subsection{Construction by random flipping of excursions}
+We first describe a construction of skew Brownian motion that shows its
+relation to Brownian motion \citep[see][Chapter~XII, Exercise~2.16]{RevuzYor1999}.
+Starting from a reflected Brownian motion, we change the sign of each excursion
+independently, keeping it positive with probability $\frac{1+\beta}{2}$.
+
+Let $B$ be a Brownian motion started at $0$, and let $(Y_n)_{n\geqslant0}$ be
+a sequence of independent random variables, independent of $B$, with
+\[
+	\mathbb{P}(Y_n = 1) = \frac{1+\beta}{2}, \qquad \mathbb{P}(Y_n = -1) = \frac{1-\beta}{2}.
+\]
+The set $\{t : B_t\neq0\}$ is a countable union of disjoint open intervals, the
+excursion intervals of $B$. They can be enumerated measurably as
+$(I_n)_{n\geqslant0}$: for instance, for each $k$ and $j$ only finitely many
+of them are contained in $[0,k]$ and have length at least $2^{-j}$, and these
+can be listed by their left end-points. Define
+\[
+	X_t = Y_n\,|B_t| \quad\text{if } t\in I_n, \qquad X_t = 0 \quad\text{if } B_t = 0 .
+\]
+Thus $|X| = |B|$, and each excursion of $X$ is an excursion of $|B|$ given a
+random sign. The process $X$ is a skew Brownian motion of parameter $\beta$
+started at $0$: there is a Brownian motion $W$ such that $X$ satisfies
+\eqref{eq:sbm} with $x = 0$ \citep{HarrisonShepp1981,Lejay2006}.
+
+The symmetric local time of $X$ is a functional of $|X|$, since
+$\hat{L}_t = \lim_{\varepsilon\to0}\frac{1}{2\varepsilon}\int_0^t1_{\{|X_s|<\varepsilon\}}\,ds$
+by the occupation formula. As $|X| = |B|$, we get
+$\hat{L}_t = L^0_t(B)$.
+
+\begin{remark}
+	\citet{Lejay2006} describes extensions of this ``random flipping of
+	excursions'' method, which also give a decomposition of the Itô measure of
+	the excursions of $X$.
+\end{remark}
+
+\subsection{Joint law of skew Brownian motion and its local time}
+
+We use the notation
+\[
+	p_t(z) = \frac{1}{\sqrt{2\pi t}}\exp\Bigl(-\frac{z^2}{2t}\Bigr),
+	\qquad
+	q(a,t) = \frac{a}{\sqrt{2\pi t^3}}\exp\Bigl(-\frac{a^2}{2t}\Bigr) = \frac{a}{t}\,p_t(a),
+\]
+for $t>0$, $z\in\mathbb{R}$ and $a>0$. Recall that $q(a,\cdot)$ is the density
+of the hitting time $T_a$ of $a$ by a Brownian motion started at $0$. Since
+$T_{a+b}$ is the sum of $T_a$ and of an independent copy of $T_b$,
+\begin{equation}\label{eq:q-conv}
+	\int_0^t q(a,s)\,q(b,t-s)\,ds = q(a+b,t), \qquad a,b>0 .
+\end{equation}
+
+\begin{lemma}\label{lem:sbm-abs}
+	Let $X$ be a skew Brownian motion started at $x$, and $W'$ a Brownian motion
+	started at $|x|$. Then the processes $\bigl(|X_t|,\hat{L}_t\bigr)_{t\geqslant0}$
+	and $\bigl(|W'_t|,L^0_t(W')\bigr)_{t\geqslant0}$ have the same law.
+\end{lemma}
+\begin{proof}
+	Apply the symmetric Itô--Tanaka formula (Theorem~\ref{th:symitotanaka}) to
+	$f(z) = |z|$, whose symmetric derivative is $\sgn$ with $\sgn(0) = 0$ and
+	with $f'' = 2\delta_0$:
+	\[
+		|X_t| = |x| + \int_0^t\sgn(X_s)\,dX_s + \hat{L}_t
+		= |x| + \tilde{W}_t + \hat{L}_t,
+		\qquad \tilde{W}_t = \int_0^t\sgn(X_s)\,dW_s .
+	\]
+	The term $\beta\int_0^t\sgn(X_s)\,d\hat{L}_s$ vanishes because $d\hat{L}$
+	is carried by $\{s : X_s = 0\}$. Since $\{s : X_s = 0\}$ has Lebesgue measure
+	$0$ by the occupation formula, $\langle\tilde{W}\rangle_t = t$, and
+	$\tilde{W}$ is a Brownian motion by Lévy's characterisation. By Skorokhod's
+	lemma (Lemma~\ref{lem:skorokhod}), applied to $y = |x| + \tilde{W}$,
+	\[
+		\hat{L}_t = \sup_{s\leqslant t}\bigl(-|x| - \tilde{W}_s\bigr)\vee0,
+		\qquad |X_t| = |x| + \tilde{W}_t + \hat{L}_t .
+	\]
+	The same computation for $W'$ (for which $\hat{L}^0(W') = L^0(W')$) gives
+	$|W'| = |x| + \tilde{W}' + L^0(W')$ with a Brownian motion $\tilde{W}'$, so
+	both pairs are the same functional of a Brownian motion.
+\end{proof}
+
+\begin{lemma}\label{lem:bm-joint}
+	Let $W$ be a Brownian motion started at $0$. For $t>0$,
+	\[
+		\mathbb{P}_0\bigl[|W_t|\in dy\,;\,L^0_t(W)\in dl\bigr] = 2\,q(y+l,t)\,dy\,dl,
+		\qquad y>0,\ l>0 .
+	\]
+\end{lemma}
+\begin{proof}
+	Let $M_t = \sup_{s\leqslant t}W_s$. By Lévy's theorem, which follows from
+	Skorokhod's lemma as in the proof of Lemma~\ref{lem:sbm-abs},
+	$(|W_t|,L^0_t(W))$ has the law of $(M_t - W_t,M_t)$. By the reflection
+	principle \citep[Section~2.8]{KaratzasShreve1991}, $(M_t,W_t)$ has density
+	$\frac{2(2m-w)}{\sqrt{2\pi t^3}}\exp\bigl(-\frac{(2m-w)^2}{2t}\bigr)$ on
+	$\{m>0,\ w<m\}$. The change of variables $l = m$, $y = m-w$ has Jacobian $1$
+	and gives the result.
+\end{proof}
+
+The next lemma is intuitive, but the presence of the local time makes it hard
+to prove directly from \eqref{eq:sbm}. The construction by random flipping
+makes it easy.
+
+\begin{lemma}\label{lem:sbm-flip}
+	For $t>0$ and Borel sets $A\subset\,]0,\infty[$ and $C\subset[0,\infty[$,
+	\begin{align*}
+		\mathbb{P}_0\bigl[X_t\in A\,;\,\hat{L}_t\in C\bigr]
+		 & = \frac{1+\beta}{2}\,\mathbb{P}_0\bigl[|X_t|\in A\,;\,\hat{L}_t\in C\bigr], \\
+		\mathbb{P}_0\bigl[X_t\in -A\,;\,\hat{L}_t\in C\bigr]
+		 & = \frac{1-\beta}{2}\,\mathbb{P}_0\bigl[|X_t|\in A\,;\,\hat{L}_t\in C\bigr].
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	By uniqueness in law, and since $\hat{L}$ is a functional of the path of
+	$X$, we may take $X$ to be the process constructed above. Since
+	$\mathbb{P}(B_t = 0) = 0$, almost surely $t$ belongs to some excursion
+	interval $I_{N}$, where the index $N$ is $\sigma(B)$-measurable. On
+	$\{|B_t|\in A\}$, we have $X_t\in A$ if and only if $Y_N = 1$. Using
+	$|X| = |B|$, $\hat{L}_t = L^0_t(B)$, and the independence of $(Y_n)$ and
+	$B$,
+	\begin{align*}
+		\mathbb{P}\bigl[X_t\in A\,;\,\hat{L}_t\in C\bigr]
+		 & = \E\Bigl[1_{\{|B_t|\in A,\ L^0_t(B)\in C\}}\,
+		\mathbb{P}\bigl(Y_N = 1\,\big|\,\sigma(B)\bigr)\Bigr]                                   \\
+		 & = \E\Bigl[1_{\{|B_t|\in A,\ L^0_t(B)\in C\}}\sum_{n}1_{\{N=n\}}\,\mathbb{P}(Y_n=1)\Bigr] \\
+		 & = \frac{1+\beta}{2}\,\mathbb{P}\bigl[|X_t|\in A\,;\,\hat{L}_t\in C\bigr].
+	\end{align*}
+	The second identity is proved in the same way, with $Y_N = -1$.
+\end{proof}
+
+From these lemmas we can compute the joint law of $(X_t,\hat{L}_t)$
+\citep{EtoreMartinez2012}.
+
+\begin{proposition}\label{prop:sbm-joint}
+	Let $x\geqslant0$ and $t>0$. Under $\mathbb{P}_x$, the law of
+	$(X_t,\hat{L}_t)$ is
+	\begin{align*}
+		\mathbb{P}_x\bigl[X_t\in dy\,;\,\hat{L}_t\in dl\bigr]
+		 & = 1_{\{y>0,\,l>0\}}\,(1+\beta)\,q(x+y+l,t)\,dy\,dl          \\
+		 & \quad + 1_{\{y<0,\,l>0\}}\,(1-\beta)\,q(x-y+l,t)\,dy\,dl     \\
+		 & \quad + 1_{\{y>0\}}\bigl(p_t(y-x) - p_t(y+x)\bigr)\,dy\,\delta_0(dl).
+	\end{align*}
+	For $x<0$, the law is obtained by applying this formula to $-X$, which is a
+	skew Brownian motion of parameter $-\beta$ started at $-x$, with the same
+	symmetric local time at $0$.
+\end{proposition}
+\begin{proof}
+	\emph{Step 1: $x = 0$.} By Lemmas~\ref{lem:sbm-flip}, \ref{lem:sbm-abs}
+	and~\ref{lem:bm-joint}, for $u>0$, $y>0$ and $l>0$,
+	\[
+		\mathbb{P}_0\bigl[X_u\in\pm dy\,;\,\hat{L}_u\in dl\bigr]
+		= \frac{1\pm\beta}{2}\,\mathbb{P}_0\bigl[|W_u|\in dy\,;\,L^0_u(W)\in dl\bigr]
+		= (1\pm\beta)\,q(y+l,u)\,dy\,dl .
+	\]
+	Moreover $\hat{L}_u>0$ for every $u>0$, $\mathbb{P}_0$-almost surely, since
+	$L^0_u(W)$ has the law of $M_u>0$. This is the formula for $x=0$.
+
+	\emph{Step 2: $x>0$, $l>0$.} Let $T_0 = \inf\{s : X_s = 0\}$. On
+	$[0,T_0]$, $X = x + W$ and $\hat{L} = 0$, so the law of $T_0$ has density
+	$q(x,\cdot)$. By the strong Markov property at $T_0$, and since
+	$X_{T_0} = 0$ and $\hat{L}_{T_0+u} = \hat{L}^0_u(X_{T_0+\cdot})$, Step~1
+	and~\eqref{eq:q-conv} give, for $y>0$,
+	\begin{align*}
+		\mathbb{P}_x\bigl[X_t\in dy\,;\,\hat{L}_t\in dl\bigr]
+		 & = \int_0^t q(x,s)\,\mathbb{P}_0\bigl[X_{t-s}\in dy\,;\,\hat{L}_{t-s}\in dl\bigr]\,ds \\
+		 & = (1+\beta)\int_0^t q(x,s)\,q(y+l,t-s)\,ds\;dy\,dl
+		= (1+\beta)\,q(x+y+l,t)\,dy\,dl,
+	\end{align*}
+	and in the same way, for $y<0$, we get $(1-\beta)\,q(x+|y|+l,t)\,dy\,dl$.
+
+	\emph{Step 3: $x>0$, $l=0$.} By Step~1, $\hat{L}_{T_0+u}>0$ for all $u>0$,
+	so $\{\hat{L}_t = 0\} = \{t\leqslant T_0\}$, and
+	$\mathbb{P}_x(T_0 = t) = 0$. On $\{t<T_0\}$, $X_t = x + W_t > 0$. By the
+	reflection principle,
+	\[
+		\mathbb{P}_x\bigl[X_t\in dy\,;\,\hat{L}_t = 0\bigr]
+		= \mathbb{P}_x\bigl[x+W_t\in dy\,;\,t<T_0\bigr]
+		= 1_{\{y>0\}}\bigl(p_t(y-x) - p_t(y+x)\bigr)\,dy . \qedhere
+	\]
+\end{proof}
+
+Integrating in $l$, using $\int_0^\infty q(a+l,t)\,dl = p_t(a)$, we obtain
+the transition density of $X$.
+
+\begin{proposition}\label{prop:sbm-density}
+	For $t>0$, $x\in\mathbb{R}$ and $y\neq0$,
+	\[
+		\mathbb{P}_x[X_t\in dy] = p^\beta_t(x,y)\,dy, \qquad
+		p^\beta_t(x,y) = p_t(y-x) + \beta\sgn(y)\,p_t(|x|+|y|).
+	\]
+\end{proposition}
+\begin{proof}
+	Let $x\geqslant0$. For $y>0$, Proposition~\ref{prop:sbm-joint} gives
+	$(1+\beta)p_t(x+y) + p_t(y-x) - p_t(y+x) = p_t(y-x) + \beta p_t(x+y)$. For
+	$y<0$, it gives $(1-\beta)p_t(x+|y|)$, and $x+|y| = |y-x|$, so this is
+	$p_t(y-x) - \beta p_t(|x|+|y|)$. For $x<0$, apply the result to $-X$, which
+	replaces $(x,y,\beta)$ by $(-x,-y,-\beta)$ and leaves the formula unchanged.
+\end{proof}
+
+For $\beta = 0$ this is the Brownian transition density. Since
+$\int\sgn(y)\,p_t(|x|+|y|)\,dy = 0$, $p^\beta_t(x,\cdot)$ has total mass
+$1$. Taking $x = 0$ gives $\mathbb{P}_0(X_t>0) = \frac{1+\beta}{2}$, as the
+construction by random flipping suggests.
+
+\section{The partial differential equation solved by skew Brownian motion}\label{sec:sbm-pde}
+
+The drift $\beta\hat{L}^0(X)$ in \eqref{eq:sbm} is singular, so the generator
+of $X$ is not a classical differential operator. Formally it is
+\[
+	\mathcal{A} = \frac{1}{2}\frac{d^2}{dx^2} + \beta\,\delta_0\,\frac{d}{dx}.
+\]
+\citet{Portenko1990} identified processes of this type through such generalised
+operators, and developed their links with the partial differential equation
+that the transition semigroup solves. This link gives several methods to
+compute the semigroup of skew Brownian motion. As in Chapter~\ref{ch:pde}, the
+probabilistic solution can be checked directly.
+
+\begin{proposition}\label{prop:sbm-pde}
+	Let $f$ be bounded and continuous, and let $u(t,x) = \E_x f(X_t)$. Then
+	\begin{enumerate}[label=(\roman*)]
+		\item $u\in C^{1,2}\bigl(]0,\infty[\times(\mathbb{R}\setminus\{0\})\bigr)$ and
+		      $\dfrac{\partial u}{\partial t} = \dfrac{1}{2}\dfrac{\partial^2u}{\partial x^2}$
+		      on $]0,\infty[\times(\mathbb{R}\setminus\{0\})$;
+		\item $u$ is continuous on $[0,\infty[\times\mathbb{R}$, and $u(0,x) = f(x)$;
+		\item for $t>0$, $\frac{\partial u}{\partial x}(t,\cdot)$ has limits at
+		      $0^+$ and $0^-$, and
+		      \[
+			      (1+\beta)\frac{\partial u}{\partial x}(t,0^+) = (1-\beta)\frac{\partial u}{\partial x}(t,0^-).
+		      \]
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	By Proposition~\ref{prop:sbm-density},
+	\[
+		u(t,x) = \int p_t(y-x)\,f(y)\,dy + \beta\int\sgn(y)\,p_t(|x|+|y|)\,f(y)\,dy .
+	\]
+	On each half-line $x>0$ and $x<0$, both kernels $(t,x)\mapsto p_t(y-x)$ and
+	$(t,x)\mapsto p_t(|x|+|y|) = p_t(\pm x + |y|)$ are solutions of the heat
+	equation. Differentiation under the integral sign is justified exactly as in
+	Theorem~\ref{th415}, which gives (i). The same domination shows that the
+	$x$-derivatives extend continuously to $x = 0^\pm$. Using
+	$p_t'(z) = -\frac{z}{t}p_t(z)$, we get
+	\[
+		\frac{\partial u}{\partial x}(t,0^\pm)
+		= \int\frac{y}{t}\,p_t(y)\,f(y)\,dy
+		\mp\beta\int\sgn(y)\,\frac{|y|}{t}\,p_t(y)\,f(y)\,dy
+		= (1\mp\beta)\,a_t,
+	\]
+	where $a_t = \int\frac{y}{t}\,p_t(y)\,f(y)\,dy$. Hence
+	$(1+\beta)\partial_xu(t,0^+) = (1+\beta)(1-\beta)a_t = (1-\beta)\partial_xu(t,0^-)$,
+	which is (iii).
+
+	For (ii), continuity on $]0,\infty[\times\mathbb{R}$ is clear from the
+	formula. As $t\to0$ and $x\to x_0$, the first term tends to $f(x_0)$ by
+	Theorem~\ref{th414}. The second term is bounded by
+	$\|f\|_\infty\int p_t(|x|+|y|)\,dy$, which tends to $0$ if $x_0\neq0$. If
+	$x_0 = 0$, it equals
+	$\beta\int_0^\infty p_t(|x|+z)\bigl(f(z)-f(-z)\bigr)\,dz$, which tends to
+	$0$ because $f(z)-f(-z)\to0$ as $z\to0$, while the measures
+	$p_t(|x|+z)\,dz$ on $]0,\infty[$ have mass at most $\frac12$ and concentrate
+	near $z = 0$.
+\end{proof}
+
+Thus $u$ solves the heat equation on each side of $0$, is continuous across
+$0$, and satisfies the \emph{transmission condition}
+\[
+	(1+\beta)\frac{\partial u}{\partial x}(t,0^+) = (1-\beta)\frac{\partial u}{\partial x}(t,0^-).
+\]
+This condition at $0$ involves the skewness parameter, and it makes the
+equation harder to solve than the heat equation. We now explain where it comes
+from, and then give an equivalent formulation in divergence form.
+
+\subsection{The transmission condition}
+Let $\mathcal{D}$ be the set of continuous functions $f$ that are $C^2$ on
+$\mathbb{R}\setminus\{0\}$, with $f'$ and $f''$ bounded and having limits at
+$0^+$ and $0^-$. Such an $f$ is a difference of two convex functions, and in
+the sense of distributions
+\[
+	f''(dz) = f''(z)\,dz + \bigl(f'(0^+) - f'(0^-)\bigr)\,\delta_0(dz),
+\]
+while its symmetric derivative at $0$ is $\frac{1}{2}\bigl(f'(0^+)+f'(0^-)\bigr)$.
+By the symmetric Itô--Tanaka formula (Theorem~\ref{th:symitotanaka}),
+\[
+	f(X_t) - f(x) = \int_0^t f'_{\mathrm{s}}(X_s)\,dW_s
+	+ \beta\int_0^t f'_{\mathrm{s}}(X_s)\,d\hat{L}_s
+	+ \frac{1}{2}\int_{\mathbb{R}}\hat{L}^a_t\,f''(da) .
+\]
+Since $d\hat{L}$ is carried by $\{X = 0\}$, the second term is
+$\frac{\beta}{2}\bigl(f'(0^+)+f'(0^-)\bigr)\hat{L}_t$. By the occupation
+formula, the last term is
+$\frac{1}{2}\int_0^tf''(X_s)\,ds + \frac{1}{2}\bigl(f'(0^+)-f'(0^-)\bigr)\hat{L}_t$.
+Hence
+\begin{equation}\label{eq:sbm-ito}
+	f(X_t) - f(x) - \frac{1}{2}\int_0^tf''(X_s)\,ds
+	= \int_0^tf'_{\mathrm{s}}(X_s)\,dW_s
+	+ \frac{1}{2}\Bigl((1+\beta)f'(0^+) - (1-\beta)f'(0^-)\Bigr)\hat{L}_t .
+\end{equation}
+The stochastic integral is a martingale, because $f'$ is bounded. The last
+term is a continuous process of bounded variation, and $\hat{L}$ is not
+identically $0$ since $X$ reaches $0$. Hence the left-hand side of
+\eqref{eq:sbm-ito} is a martingale if and only if
+\[
+	(1+\beta)f'(0^+) = (1-\beta)f'(0^-).
+\]
+In this sense the generator of $X$ acts as $f\mapsto\frac{1}{2}f''$ on the
+functions of $\mathcal{D}$ that satisfy the transmission condition; see
+\citet{Lejay2006} for a precise description of its domain. For $f = F_\nu$,
+the scale function of Remark~\ref{rem:sbm-scale}, $f'' = 0$ on
+$\mathbb{R}\setminus\{0\}$, and \eqref{eq:sbm-ito} reduces to the martingale
+property of $F_\nu(X)$.
+
+\subsection{Divergence form}
+Assume $|\beta|<1$, and let
+\[
+	k(x) = \frac{1-\beta}{2}\,1_{\{x<0\}} + \frac{1+\beta}{2}\,1_{\{x>0\}},
+	\qquad
+	L = \frac{1}{2k(x)}\frac{d}{dx}\Bigl(k(x)\frac{d}{dx}\Bigr),
+\]
+with domain
+$\mathcal{D}(L) = \{\psi\in H^1(\mathbb{R}) : k\psi'\in H^1(\mathbb{R})\}$.
+A function $\psi\in\mathcal{D}(L)$ is continuous, and so is $k\psi'$; at $0$
+this is exactly $(1+\beta)\psi'(0^+) = (1-\beta)\psi'(0^-)$. Away from $0$,
+$L\psi = \frac{1}{2}\psi''$. So $L$ is the generator of skew Brownian motion,
+written in divergence form \citep{Lejay2006}.
+
+The operator $L$ is self-adjoint and nonpositive on $L^2(\mathbb{R},k\,dx)$:
+for $\psi,\varphi\in\mathcal{D}(L)$,
+\[
+	\int L\psi\,\varphi\,k\,dx = -\frac{1}{2}\int k\,\psi'\varphi'\,dx .
+\]
+It is associated with the Dirichlet form
+$\mathcal{E}(\psi,\varphi) = \frac{1}{2}\int k\,\psi'\varphi'\,dx$ on
+$H^1(\mathbb{R})$. Since $k$ is bounded above and below by positive constants,
+$L^2(\mathbb{R},k\,dx)$ and $L^2(\mathbb{R},dx)$ coincide as sets and have
+equivalent norms, but $L$ is symmetric only for the weighted scalar product.
+The transmission problem can then be replaced by its weak formulation: for
+$\phi\in L^2(\mathbb{R},k\,dx)$, find
+\[
+	u\in C\bigl(\mathbb{R}_+;L^2(\mathbb{R},k\,dx)\bigr)\cap L^2\bigl(\mathbb{R}_+;H^1(\mathbb{R})\bigr),
+	\qquad \frac{\partial u}{\partial t} = Lu,\qquad u(0,\cdot) = \phi .
+\]
+The solution is $u(t,\cdot) = e^{tL}\phi$. An advantage of the divergence form
+is that the Markov property of the associated process follows directly from
+the theory of Dirichlet forms.

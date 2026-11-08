@@ -1,0 +1,536 @@
+\chapter{SDEs Involving the Local Times of the Unknown Process}\label{ch:local-times-unknown}
+
+In this chapter, which follows \citet{LeGall1984}, $B$ is a one-dimensional
+Brownian motion, $\phi:\mathbb{R}\to \mathbb{R}$ is a bounded Borel function
+and $\nu$ is a bounded signed measure on $\mathbb{R}$. We consider the
+stochastic differential equation
+\begin{equation}\label{eq31}
+	X_t=X_0 +\int_0^t \phi(X_s)\,dB_s+\int_\mathbb{R} \hat{L}_t^a (X)\, \nu(da),
+\end{equation}
+where $\hat{L}_t^a (X)$ is the symmetric local time of the semimartingale $X$ at
+level $a$ and time $t$ (Definition~\ref{def:symlocaltime}). Two cases of
+\eqref{eq31} are of special interest. When $\nu$ is absolutely continuous with
+respect to Lebesgue measure, $\nu(da)=g(a)\,da$, the occupation times formula
+(and the fact that $\hat{L}^a = L^a$ for all but countably many $a$) shows that
+\eqref{eq31} is the usual equation
+\begin{equation}\label{eq32}
+	X_t=X_0 +\int_0^t \phi(X_s)\,dB_s+\int_0^t (g\, \phi^2)(X_s)\,ds .
+\end{equation}
+When $\phi=1$ and $\nu=\beta \delta_0$, where $\delta_0$ is the Dirac measure at
+$0$, we get
+\begin{equation}\label{eq33}
+	X_t= X_0 + B_t + \beta \hat{L}_t^0 (X),
+\end{equation}
+whose solution is the skew Brownian motion studied in Chapter~\ref{ch:sbm}.
+
+\section{One-dimensional SDEs and local times}
+
+In this section we present results on local times and stochastic differential
+equations that will be used in our study of \eqref{eq31}. Consider the
+classical It\^o equation
+\begin{equation}\label{eq34}
+	dX_t=\sigma (t,X_t)\,dB_t + b(t,X_t)\,dt,
+\end{equation}
+where $B$ is a one-dimensional Brownian motion and
+$\sigma , b :\mathbb{R}_+ \times \mathbb{R}\to \mathbb{R}$ are bounded Borel
+functions. Our method relies on the following simple lemma
+\citep[Lemma~IX.3.3]{RevuzYor1999}.
+
+\begin{lemma}\label{lem31}
+	Let $X$ be a continuous semimartingale and let
+	$\rho : ]0,\infty[ \to ]0,\infty[$ be a Borel function such that
+	$\int_{0+}\frac{du}{\rho(u)}=\infty$. If, for every $t\geqslant 0$,
+	\[
+		\int_0^t \frac{1_{\{X_s > 0\}}}{\rho (X_s)}\,d\langle X \rangle_s < \infty \qquad\text{a.s.},
+	\]
+	then $L_t^0(X)=0$ for all $t\geqslant 0$, almost surely.
+\end{lemma}
+
+\begin{proof}
+	By the occupation times formula,
+	\[
+		\int_0^t \frac{1_{\{X_s > 0\}}}{\rho (X_s)}\,d\langle X \rangle_s
+		= \int_{0}^{\infty}\frac{L_t^a(X)}{\rho(a)}\,da .
+	\]
+	If $L^0_t(X) > 0$, then by right continuity $L^a_t(X)\geqslant L^0_t(X)/2$ for
+	$a\in\,]0,\eta]$ and some $\eta>0$, and the right-hand side is infinite.
+\end{proof}
+
+We say that $\sigma$ satisfies
+\begin{description}
+	\item[(A)] if there exists a Borel function $\rho :]0 , \infty[ \to ]0 , \infty[$
+	      such that $\int_{0+}\frac{du}{\rho(u)}= \infty$ and
+	      $(\sigma(t,x)- \sigma(t,y))^2\leqslant \rho(|x-y|)$ for all $t$ and $x\neq y$;
+	\item[(B)] if there exist $\varepsilon > 0$ and a bounded increasing function
+	      $f:\mathbb{R}\to \mathbb{R}$ such that $\sigma (t,x) \geqslant \varepsilon$ and
+	      $(\sigma(t,x)-\sigma(t,y))^2 \leqslant |f(x)-f(y)|$ for all $t,x,y$.
+\end{description}
+For instance, (A) holds if $\sigma$ is H\"older continuous of order $\frac{1}{2}$
+in $x$, uniformly in $t$, and (B) holds if $\sigma \geqslant\varepsilon$ and
+$\sigma(t,\cdot)$ has total variation bounded uniformly in $t$, with
+$f(x) = 2\|\sigma\|_\infty V(x)$ where $V$ is a bound for the variation of
+$\sigma(t,\cdot)$ on $]-\infty,x]$.
+
+\begin{corollary}\label{cor31}
+	Suppose that $\sigma$ satisfies (A) or (B), and let $X^1$ and $X^2$ be two
+	solutions of \eqref{eq34} defined on the same filtered probability space with
+	the same Brownian motion $B$. Then $L_t^0 (X^1 - X^2) = 0$ for all $t$, almost
+	surely.
+\end{corollary}
+
+\begin{proof}
+	We apply Lemma~\ref{lem31} to $X=X^1 - X^2$, for which
+	$d\langle X\rangle_s = (\sigma (s,X_s^1)-\sigma(s,X_s^2))^2\,ds$.
+
+	\emph{Case (A).} With $\rho$ given by (A),
+	\[
+		\int_0^t \frac{1_{\{X_s > 0\}}}{\rho(X_s)}\,d\langle X\rangle_s
+		= \int_0^t \frac{(\sigma (s,X_s^1)-\sigma(s,X_s^2))^2}{\rho(X_s^1-X_s^2)}\,
+		1_{\{X_s^1 - X_s^2 > 0\}}\,ds \leqslant t .
+	\]
+
+	\emph{Case (B).} We take $\rho(u)=u$ and show that
+	$\E\int_0^t 1_{\{X_s > 0\}}\,d\langle X\rangle_s/X_s < \infty$. Let $\mu_f$ be the
+	Stieltjes measure of the right-continuous version of $f$, a finite measure
+	with $\mu_f(\mathbb{R})\leqslant 2\|f\|_\infty$. For $x > y$ we have
+	$f(x)-f(y)\leqslant \mu_f([y,x])$, hence, on $\{X_s > \delta\}$ with $\delta>0$,
+	\[
+		\frac{d\langle X\rangle_s}{X_s} \leqslant \frac{f(X^1_s) - f(X^2_s)}{X^1_s - X^2_s}\,ds
+		\leqslant \int_\mathbb{R} \frac{1_{\{X^2_s\leqslant a\leqslant X^1_s\}}}{X^1_s - X^2_s}\,\mu_f(da)\,ds .
+	\]
+	For $u\in[0,1]$ let $Z^u = X^2 + u(X^1 - X^2)$. Then
+	$Z^u = Z^u_0 + \int_0^\cdot \sigma^u_s\,dB_s + \int_0^\cdot b^u_s\,ds$ with
+	$\varepsilon\leqslant\sigma^u\leqslant K$ and $|b^u|\leqslant K$, where $K$ bounds
+	$|\sigma|$ and $|b|$. For $x>y$ and $\eta > 0$,
+	$\frac{1}{x-y}\int_y^x \frac{1}{\eta}1_{[a,a+\eta[}(z)\,dz =
+		\int_0^1 \frac{1}{\eta}1_{[a,a+\eta[}(y+u(x-y))\,du$, which tends to
+	$\frac{1_{\{y\leqslant a < x\}}}{x-y}$ as $\eta\downarrow 0$. By Fatou's lemma, the
+	bound $ds \leqslant \varepsilon^{-2}d\langle Z^u\rangle_s$ and the occupation
+	times formula,
+	\[
+		\E\int_0^t \frac{1_{\{X^2_s\leqslant a < X^1_s\}}}{X^1_s - X^2_s}\,ds
+		\leqslant \liminf_{\eta\downarrow 0}\int_0^1 \E\Big[\frac{1}{\eta\varepsilon^2}\int_a^{a+\eta} L^x_t(Z^u)\,dx\Big]du
+		\leqslant \frac{C}{\varepsilon^2},
+	\]
+	where $C = \sup_{u,x}\E L^x_t(Z^u)$ is finite: by Tanaka's formula,
+	$L^x_t(Z^u) \leqslant |Z^u_t - Z^u_0| + |\int_0^t \sgn(Z^u_s - x)\sigma^u_s\,dB_s| + Kt$,
+	whose expectation is at most $2K\sqrt{t} + 2Kt$. The event $\{X^1_s = a\}$ does not
+	matter since $\int_0^t 1_{\{X^1_s = a\}}\,ds = 0$. Integrating with respect to
+	$\mu_f(da)$ and letting $\delta\downarrow 0$, we get
+	$\E\int_0^t 1_{\{X_s > 0\}}\,d\langle X\rangle_s/X_s \leqslant 2\|f\|_\infty C/\varepsilon^2$,
+	and Lemma~\ref{lem31} applies.
+\end{proof}
+
+\begin{remark}
+	The proof only uses the martingale parts of $X^1$ and $X^2$. The result of the
+	corollary therefore remains valid, by localisation, if $X^1$ and $X^2$ are only
+	assumed to satisfy $dX_t^i=\sigma (t,X_t^i)\,dB_t + dV_t^i$, where $V^1$ and $V^2$
+	are continuous adapted processes of finite variation.
+\end{remark}
+
+\begin{theorem}\label{th31}
+	Suppose that $\sigma$ and $b$ satisfy one of the following assumptions:
+	\begin{enumerate}[label=(\alph*)]
+		\item $\sigma$ satisfies (A) and $b$ is Lipschitz in $x$, uniformly in $t$;
+		\item $\sigma$ satisfies (A) and $\sigma \geqslant \varepsilon$ for some $\varepsilon > 0$;
+		\item $\sigma$ satisfies (B).
+	\end{enumerate}
+	Then pathwise uniqueness holds for \eqref{eq34}.
+\end{theorem}
+
+\begin{remark}
+	Each of the assumptions (a), (b) and (c) also implies weak existence for
+	\eqref{eq34}. By the theorem of Yamada and Watanabe, there is then a unique
+	solution of \eqref{eq34} with a given initial value on any filtered probability
+	space carrying a Brownian motion, and this solution is strong
+	\citep{LeGall1984,RevuzYor1999}.
+\end{remark}
+
+\begin{proof}
+	Let $X^1$ and $X^2$ be two solutions of \eqref{eq34} with the same Brownian
+	motion and the same initial value, and let $\Delta = X^1 - X^2$. By
+	Corollary~\ref{cor31}, $L^0(\Delta) = 0$.
+
+	\emph{Cases (b) and (c).} Since $\sigma \geqslant \varepsilon$, uniqueness in law
+	holds for \eqref{eq34}, a result due to Stroock and Varadhan in dimension one
+	\citep{LeGall1984}. By Tanaka's formula and $L^0(\Delta) = 0$,
+	\[
+		X^1 \vee X^2 = X^2 + \Delta^+ = X^2 + \int_0^\cdot 1_{\{\Delta_s>0\}}\,d\Delta_s ,
+	\]
+	so that, since $1_{\{X^1>X^2\}}\sigma(s,X^1) + 1_{\{X^1\leqslant X^2\}}\sigma(s,X^2) = \sigma(s,X^1\vee X^2)$
+	and similarly for $b$, the process $X^1\vee X^2$ is again a solution of
+	\eqref{eq34} with the same initial value. Hence $X^1\vee X^2$ and $X^1$ have the
+	same law, and since $X^1\vee X^2 \geqslant X^1$, the argument of
+	Proposition~\ref{pro:lawtopath} shows that $X^1\vee X^2 = X^1$. Similarly
+	$X^1 \vee X^2 = X^2$, so $X^1 = X^2$.
+
+	\emph{Case (a).} Let $K$ be a Lipschitz constant for $b$. Since $L^0(\Delta)=0$,
+	Tanaka's formula gives
+	$|\Delta_t| = \int_0^t \sgn(\Delta_s)\,d\Delta_s$. The stochastic integral is a
+	martingale because $\sigma$ is bounded, so
+	\[
+		\E|\Delta_t| = \E\int_0^t \sgn(\Delta_s) \big(b (s,X_s^1)-b(s,X_s^2)\big)\, ds
+		\leqslant K \int_0^t \E|\Delta_s|\, ds ,
+	\]
+	and Gronwall's lemma gives $\E|\Delta_t|=0$ for all $t$.
+\end{proof}
+
+\begin{theorem}[Comparison theorem]\label{th32}
+	For $i=1,2$, let $X^i$ satisfy
+	$dX_t^i=\sigma (t,X_t^i)\,dB_t + b_i(t,X_t^i)\,dt$, where $\sigma$, $b_1$, $b_2$
+	are bounded Borel functions. Assume that $\sigma$ satisfies (A) or (B), that one
+	of the functions $b_1$, $b_2$ is Lipschitz in $x$ uniformly in $t$, that
+	$b_1 \geqslant b_2$, and that $X_0^1 \geqslant X_0^2$ almost surely. Then, almost
+	surely, $X_t^1\geqslant X_t^2$ for all $t$.
+\end{theorem}
+
+\begin{proof}
+	By Corollary~\ref{cor31} and the remark following it, the local time at $0$ of
+	$X^2 - X^1$ vanishes. Suppose that $b_1$ is Lipschitz with constant $K$. By
+	Tanaka's formula, since $(X^2_0-X^1_0)^+ = 0$ and the stochastic integral is a
+	martingale,
+	\begin{align*}
+		\E[( X_t^2 - X_t^1)^+] & = \E\int_0^t 1_{\{X_s^2 > X_s^1\}} \big(b_2 (s,X_s^2)-b_1(s,X_s^1)\big)\, ds  \\
+		                       & \leqslant \E\int_0^t 1_{\{X_s^2 > X_s^1\}} \big(b_1 (s,X_s^2)-b_1(s,X_s^1)\big)\, ds
+		\leqslant K \int_0^t \E[( X_s^2 - X_s^1)^+]\, ds ,
+	\end{align*}
+	using $b_2\leqslant b_1$. If $b_2$ is Lipschitz, we use instead
+	$b_2(s,X^2_s) - b_1(s,X^1_s)\leqslant b_2(s,X^2_s) - b_2(s,X^1_s)$. In both cases
+	Gronwall's lemma gives $\E[( X_t^2 - X_t^1)^+]=0$ for all $t$, and the result
+	follows by continuity.
+\end{proof}
+
+We finally state a ``strong'' limit theorem for solutions of equations of the
+type \eqref{eq34}, which will be used in the section on limit theorems. Its
+proof uses techniques similar to those of Theorems~\ref{th31} and~\ref{th32};
+we refer to \citet{LeGall1984}.
+
+\begin{theorem}\label{th33}
+	Let $X^n$ $(n\geqslant 1)$ and $X$ be continuous semimartingales on the same
+	filtered probability space such that
+	\[
+		dX_t^n =\sigma _n(X_t^n)\,dB_t + b_n(X_t^n)\,dt, \qquad
+		dX_t =\sigma (X_t)\,dB_t + b(X_t)\,dt,
+	\]
+	where $\sigma_n$, $b_n$, $\sigma$ and $b$ are Borel functions on $\mathbb{R}$.
+	Assume that
+	\begin{enumerate}[label=(\roman*)]
+		\item $\sigma$ satisfies (A) or (B);
+		\item there exist constants $\varepsilon, K>0$ such that
+		      $\varepsilon\leqslant \sigma_n \leqslant K$ and $|b_n| \leqslant K$ for all $n$;
+		\item $X_0^n \to X_0$ in $L^1$;
+		\item $\int_{-M}^{M} |\sigma_n (u)-\sigma(u)|\, du \to 0$ and
+		      $\int_{-M}^{M} |b_n (u)-b(u)|\, du \to 0$ for every $M>0$.
+	\end{enumerate}
+	Then, for every $t\geqslant 0$,
+	\[
+		\E\Big[\sup_{0\leqslant s\leqslant t}|X_s^n - X_s |\Big]\longrightarrow 0 .
+	\]
+\end{theorem}
+
+\section{The singular equation}
+
+We now turn to equations involving the local times of the unknown process. We
+first introduce some notation. Let $BV(\mathbb{R})$ be the space of right
+continuous functions $f:\mathbb{R}\to\mathbb{R}$ of bounded variation on
+$\mathbb{R}$ such that $f\geqslant \varepsilon$ for some $\varepsilon > 0$. For
+$f \in BV(\mathbb{R})$, we write $f(x-)$ for the left limit of $f$ at $x$ and
+$df$ for the bounded signed measure associated with $f$, which is the derivative
+of $f$ in the sense of distributions. Let $M(\mathbb{R})$ be the space of
+bounded signed measures $\nu$ on $\mathbb{R}$ such that $|\nu (\{x\})| < 1$ for
+every $x\in \mathbb{R}$. For $\nu \in M(\mathbb{R})$, $\nu^c$ denotes the
+continuous (diffuse) part of $\nu$.
+
+\begin{lemma}[\citealp{LeGall1984}]\label{lem:fnu}
+	Let $\nu\in M(\mathbb{R})$. There exists a function $f$ in $BV(\mathbb{R})$,
+	unique up to a multiplicative constant, such that
+	\begin{equation}\label{eq35}
+		df(dx)+\big(f(x)+f(x-)\big)\nu(dx)=0 .
+	\end{equation}
+	The unique such function with $f(x)\to 1$ as $x\to -\infty$ is
+	\begin{equation}\label{eq36}
+		f_\nu(x)=\exp\big(-2\nu^c(]-\infty, x])\big)\prod_{y\leqslant x}
+		\frac{1-\nu (\{ y\})}{1+\nu (\{ y\} )} .
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Since $\sum_y |\nu(\{y\})| < \infty$ and $|\nu(\{y\})|<1$, the product converges
+	and $f_\nu$ is bounded above and below by positive constants; it is right
+	continuous and of bounded variation. Its diffuse part satisfies
+	$df^c_\nu = -2f_\nu\,d\nu^c$, and at an atom $y$,
+	$f_\nu(y) (1+\nu(\{y\})) = f_\nu(y-)(1-\nu(\{y\}))$, which is
+	$f_\nu(y) - f_\nu(y-) = -(f_\nu(y) + f_\nu(y-))\nu(\{y\})$. Hence $f_\nu$ satisfies
+	\eqref{eq35}. Conversely, these two relations determine the diffuse part and
+	the jumps of any solution $f$ in terms of $f$ itself, and the same computation
+	shows that $f/f_\nu$ has no jumps and zero diffuse derivative, hence is constant.
+\end{proof}
+
+We are interested in the singular stochastic differential equation
+\begin{equation}\label{eq37}
+	dX_t=\phi(X_t)\,dB_t+\int_\mathbb{R} d_t \hat{L}_t^a (X)\,\nu(da) ,
+\end{equation}
+where $\phi$ is in $BV(\mathbb{R})$ and $\nu$ is in $M(\mathbb{R})$. The next
+proposition relates \eqref{eq37} to a classical It\^o equation without drift.
+
+\begin{proposition}\label{prop31}
+	Let $\phi\in BV(\mathbb{R})$ and $\nu\in M(\mathbb{R})$, let $f_\nu$ be given by
+	\eqref{eq36} and set $F_\nu (x)=\int_0^x f_\nu (y)\,dy$. Then $X$ is a solution of
+	\eqref{eq37} if and only if $Y=F_\nu(X)$ is a solution of
+	\begin{equation}\label{eq38}
+		dY_t=(\phi \, f_\nu) \circ F_{\nu}^{-1}(Y_t)\,dB_t .
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Write $f = f_\nu$, $F = F_\nu$ and $f_{\mathrm{s}}(x) = \frac{1}{2}(f(x)+f(x-))$,
+	the symmetric derivative of $F$. The function $F$ is a strictly increasing
+	bijection of $\mathbb{R}$ and a difference of convex functions, with $F'' = df$.
+
+	Let $X$ be a solution of \eqref{eq37}. Since $d\langle X\rangle = \phi^2(X)\,ds$ with
+	$\phi\geqslant\varepsilon$, the occupation times formula shows that $X$ spends
+	zero Lebesgue time in the countable set of discontinuities of $f$, so that
+	$f_{\mathrm{s}}(X_s) = f(X_s)$ for almost every $s$. By the symmetric It\^o--Tanaka
+	formula (Theorem~\ref{th:symitotanaka}),
+	\begin{align*}
+		Y_t & = Y_0+\int_0^t f_{\mathrm{s}}(X_s)\,dX_s + \frac{1}{2}\int_\mathbb{R} \hat{L}_t^a\, df(da)                                  \\
+		    & =Y_0+\int_0^t (f\phi)(X_s)\, dB_s +\int_\mathbb{R}\Big(\int_0^t f_{\mathrm{s}}(X_s)\,d_s \hat{L}_s^a\Big)\nu(da)
+		+\frac{1}{2}\int_\mathbb{R} \hat{L}_t^a\, df(da)                                                                                  \\
+		    & = Y_0+\int_0^t (f\phi)(X_s)\, dB_s + \frac{1}{2}\int_\mathbb{R} \hat{L}_t^a \Big(\big(f(a)+f(a-)\big) \nu(da) + df(da)\Big) \\
+		    & = Y_0+\int_0^t (f\phi)(X_s)\, dB_s ,
+	\end{align*}
+	where we used that $d\hat{L}^a$ is carried by $\{X = a\}$ and \eqref{eq35}. Since
+	$X = F^{-1}(Y)$, $Y$ satisfies \eqref{eq38}.
+
+	Conversely, let $Y$ be a solution of \eqref{eq38} and $X = G(Y)$ with
+	$G = F^{-1}$. The function $G$ is a difference of convex functions with
+	$G'(y) = 1/f(G(y))$ for all but countably many $y$, and $Y$ spends zero Lebesgue
+	time in this countable set. By the symmetric It\^o--Tanaka formula,
+	\[
+		X_t = X_0 + \int_0^t \frac{(\phi f)(X_s)}{f(X_s)}\,dB_s + V_t = X_0 + \int_0^t \phi(X_s)\,dB_s + V_t,
+		\qquad V_t = \frac{1}{2}\int_\mathbb{R} \hat{L}_t^{F(a)}(Y)\; d\Big(\frac{1}{f}\Big)(a),
+	\]
+	where we changed variables $b = F(a)$ in the measure $G''(db)$. Since
+	$d\langle Y\rangle = f(X)^2\,d\langle X\rangle$, the occupation times formula and right
+	continuity give $L^{F(a)}(Y) = f(a)L^a(X)$ and $L^{F(a)-}(Y) = f(a-)L^{a-}(X)$ for
+	every $a$, so that
+	\[
+		V_t = \frac{1}{4}\int_\mathbb{R} \big(f(a)L^a_t(X) + f(a-)L^{a-}_t(X)\big)\, d\Big(\frac{1}{f}\Big)(a) .
+	\]
+	The diffuse part of $d(1/f)$ is $-df^c/f^2 = 2\nu^c/f$, and since $L^a = L^{a-} = \hat{L}^a$
+	for all but countably many $a$, it contributes $\int \hat{L}^a_t(X)\,\nu^c(da)$. Let $a$
+	be an atom of $\nu$, $c = \nu(\{a\})$ and $r = f(a)/f(a-) = (1-c)/(1+c)$. The
+	contribution of $a$ to $V$ is
+	$\frac{1}{4}\big(L^a(X)(1-r) + L^{a-}(X)(r^{-1}-1)\big)$, and this is also
+	$\int 1_{\{X_s = a\}}\,dV_s$. By the jump formula of Theorem~\ref{th8},
+	$L^a(X) - L^{a-}(X)$ equals twice this quantity, which forces
+	$L^{a-}(X) = r\,L^a(X)$. Hence the contribution of $a$ is
+	$\frac{1}{2}(1-r)L^a(X) = \frac{c}{1+c}L^a(X) = c\,\hat{L}^a(X)$, since
+	$\hat{L}^a(X) = \frac{1+r}{2}L^a(X) = \frac{1}{1+c}L^a(X)$. Therefore
+	$V_t = \int_\mathbb{R}\hat{L}^a_t(X)\,\nu(da)$, and $X$ solves \eqref{eq37}.
+\end{proof}
+
+The function $(\phi f_\nu)\circ F_{\nu}^{-1}$ belongs to $BV(\mathbb{R})$, since
+$F_\nu^{-1}$ is an increasing bijection. We have thus shown that
+\eqref{eq37} is equivalent to an equation of the same type with $\nu=0$.
+
+\begin{theorem}\label{th:singular}
+	Let $\phi\in BV(\mathbb{R})$ and $\nu\in M(\mathbb{R})$. Then existence and
+	pathwise uniqueness hold for \eqref{eq37}.
+\end{theorem}
+
+\begin{proof}
+	By Proposition~\ref{prop31}, it suffices to consider \eqref{eq38}, whose
+	coefficient $h = (\phi f_\nu)\circ F_{\nu}^{-1}$ is in $BV(\mathbb{R})$. If
+	$V_h(x)$ denotes the total variation of $h$ on $]-\infty,x]$, then
+	$(h(x)-h(y))^2 \leqslant 2\|h\|_\infty |V_h(x) - V_h(y)|$, so $h$ satisfies (B),
+	and pathwise uniqueness follows from Theorem~\ref{th31}~(c). Weak existence for
+	\eqref{eq38} holds since $h$ is bounded and bounded below by a positive constant
+	(for instance by a time change), and existence of a strong solution then follows
+	from the Yamada--Watanabe theorem.
+\end{proof}
+
+\section{Limit theorems}
+
+In this section we use Theorem~\ref{th33} to prove limit theorems for solutions
+of equations of the form \eqref{eq37}. They show that any solution of
+\eqref{eq37} is the limit, in a strong sense, of solutions of classical It\^o
+equations.
+
+\begin{theorem}\label{th331}
+	Let $\nu_n\in M(\mathbb{R})$ and $\phi_n\in BV(\mathbb{R})$ $(n\geqslant 1)$, and
+	suppose that there exist constants $\varepsilon , M>0$ such that, for all $n$
+	and $x$,
+	\[
+		|\nu_n| (\mathbb{R})\leqslant M, \qquad
+		\varepsilon\leqslant \phi_n(x)\leqslant M, \qquad
+		|\nu_n(\{ x\})| \leqslant 1-\varepsilon .
+	\]
+	Let $(\Omega,\mathcal{F},(\mathcal{F}_t), \mathbb{P})$ be a filtered probability
+	space carrying a Brownian motion $B$, and for $n\geqslant 1$ let $X^n$ be the
+	solution of
+	\[
+		X_t^n=X^n_0+\int_0^t \phi_n(X_s^n)\,dB_s+\int_\mathbb{R} \hat{L}_t^a(X^n)\,\nu_n(da),
+	\]
+	where $X_0^n \to X_0$ in $L^1$. Assume further that there exist two functions
+	$\phi$, $f$ in $BV(\mathbb{R})$ such that, for every $K>0$,
+	\[
+		\int_{-K}^{K}|\phi_n - \phi |(x)\,dx \longrightarrow 0 , \qquad
+		\int_{-K}^{K}|f_{\nu_n} - f |(x)\,dx \longrightarrow 0,
+	\]
+	and set $\nu(dx)=-\dfrac{df(dx)}{f(x)+f(x-)}$. Then $\nu\in M(\mathbb{R})$, and for
+	every $t\geqslant 0$,
+	\[
+		\E\Big[\sup_{0\leqslant s\leqslant t}|X_s^n-X_s|\Big] \longrightarrow 0,
+	\]
+	where $X$ is the solution of
+	\[
+		X_t=X_0 + \int_0^t \phi(X_s)\,dB_s+\int_\mathbb{R} \hat{L}_t^a(X)\,\nu(da) .
+	\]
+\end{theorem}
+
+\begin{remark}\label{rem:limitnu}
+	The limit of the sequence $(\nu_n)$, if it exists, need not coincide with $\nu$.
+	For instance, let $X_0^n = 0$, $\phi_n =1$ and $\nu_n(dx)=g_n (x)\,dx$, where
+	$g_n \geqslant 0$, $\int_\mathbb{R} g_n (x)\,dx = A > 0$ and $g_n$ vanishes outside
+	$[-\varepsilon_n , \varepsilon_n ]$ with $\varepsilon_n\to 0$. Then
+	$\nu_n \to A\delta_0$ weakly, while $f_{\nu_n}(x) = \exp(-2\int_{-\infty}^x g_n)$
+	converges to $f = 1_{]-\infty,0[} + e^{-2A}1_{[0,\infty[}$. The theorem shows that
+	$X^n$ converges to the solution of
+	\[
+		X_t=B_t + \frac{1-e^{-2A}}{1+e^{-2A}}\,\hat{L}_t^0 (X) = B_t + \tanh(A)\,\hat{L}_t^0 (X) ,
+	\]
+	and not to the solution of $X_t = B_t + A\hat{L}^0_t(X)$, which does not even exist
+	when $A > 1$.
+\end{remark}
+
+\begin{proof}[Proof of Theorem~\ref{th331}]
+	Since $\inf f > 0$ and $df$ is bounded, $\nu$ is a bounded signed measure, and
+	$|\nu(\{x\})| = |f(x)-f(x-)|/(f(x)+f(x-)) < 1$, so $\nu\in M(\mathbb{R})$; moreover $f$
+	solves \eqref{eq35} for this $\nu$, so $f = c\,f_\nu$ for a constant $c > 0$, and
+	Proposition~\ref{prop31} holds with $f$ in place of $f_\nu$. Let
+	\[
+		f_n=f_{\nu_n}, \qquad F_n(x) =\int_0^x f_n(y)\,dy, \qquad h_n =(\phi_n f_n) \circ F_n^{-1},
+	\]
+	and define $F$ and $h = (\phi f)\circ F^{-1}$ in the same way. Since
+	$|\log\frac{1-c}{1+c}| \leqslant C_\varepsilon |c|$ for $|c|\leqslant 1-\varepsilon$, the
+	bounds on $\nu_n$ give constants $0<\kappa\leqslant K'$ with
+	$\kappa \leqslant f_n\leqslant K'$ for all $n$; hence there are constants
+	$\varepsilon', M'>0$ with $\varepsilon'\leqslant h_n\leqslant M'$ for all $n$. From the
+	$L^1_{\mathrm{loc}}$ convergence of $f_n$ and $\phi_n$, $F_n\to F$ and
+	$F_n^{-1}\to F^{-1}$ locally uniformly, and one checks that
+	$\int_{-K}^K |h_n - h| (y)\,dy \to 0$ for every $K > 0$.
+
+	By Proposition~\ref{prop31}, $Y^n = F_n(X^n)$ satisfies
+	$Y_t^n= F_n(X^n_0) + \int_0^t h_n(Y_s^n)\,dB_s$. Let $Y$ be the solution of
+	$Y_t= F(X_0)+\int_0^t h(Y_s)\,dB_s$; since $h\in BV(\mathbb{R})$, it satisfies (B),
+	as in the proof of Theorem~\ref{th:singular}. Moreover
+	\begin{align*}
+		\E|F_n(X^n_0) - F(X_0)| & \leqslant \E|F_n(X_0^n) -F_n(X_0)| + \E|F_n(X_0) -F(X_0)|          \\
+		                        & \leqslant K'\,\E|X^n_0 - X_0| + \E|F_n(X_0) -F(X_0)| \longrightarrow 0,
+	\end{align*}
+	by dominated convergence for the last term, since $|F_n(x)-F(x)|\leqslant 2K'|x|$.
+	Theorem~\ref{th33} therefore gives
+	$\E[\sup_{s\leqslant t} |Y_s^n - Y_s|] \to 0$. Since
+	$|F_n^{-1}(y) - F_n^{-1}(y')|\leqslant |y-y'|/\kappa$ and $F_n^{-1}\to F^{-1}$ locally
+	uniformly, it follows that
+	\[
+		\E\Big[\sup_{s\leqslant t} |X_s^n - F^{-1}(Y_s)| \Big]\longrightarrow 0 .
+	\]
+	Finally, by Proposition~\ref{prop31}, $X = F^{-1}(Y)$ solves the equation with
+	coefficients $\phi$ and $\nu$.
+\end{proof}
+
+\begin{corollary}\label{cor331}
+	Let $\nu\in M(\mathbb{R})$, let $X_0\in L^1$, and let $X$ be the solution of
+	\[
+		X_t=X_0 + B_t+\int_\mathbb{R} \hat{L}_t^a(X)\,\nu(da) .
+	\]
+	For $n \geqslant 1$, set $X_t^n =\frac{1}{n}X_{n^2 t}$. Then $X^n$ converges in law
+	to the skew Brownian motion started at $0$ with parameter $\beta$ given by
+	\[
+		\frac{1-\beta}{1+\beta}=\exp\big(-2 \nu^c(\mathbb{R})\big)\prod_{y\in\mathbb{R}}
+		\frac{1-\nu (\{ y\})}{1+\nu (\{ y\} )} = \lim_{x\to+\infty} f_\nu(x) .
+	\]
+\end{corollary}
+
+\begin{remark}
+	Recall that the skew Brownian motion with parameter $\beta\in[-1,1]$ is the
+	unique solution of $X_t = B_t + \beta \hat{L}_t^0(X)$. In the case
+	$\nu(da)=g(a)\,da$, studied by \citet{Rosenkrantz1975}, the corollary gives
+	$\frac{1-\beta}{1+\beta}= \exp\big(-2\int_\mathbb{R} g(x)\,dx\big)$.
+\end{remark}
+
+\begin{proof}
+	For each $n$, let $\nu_n$ be the image of $\nu$ under $a\mapsto a/n$, that is
+	$\nu_n(A)=\nu(nA)$. The process $W^n_t = \frac{1}{n}B_{n^2t}$ is a Brownian motion,
+	and the occupation times formula gives
+	$L^b_t(X^n) = \frac{1}{n} L^{nb}_{n^2t}(X)$, and similarly for symmetric local
+	times. Hence
+	\[
+		X_t^n=\frac{1}{n}X_0 + W^n_t+\int_\mathbb{R} \hat{L}_t^b(X^n)\,\nu_n(db),
+	\]
+	so that, by uniqueness in law, $X^n$ has the same law as the solution $Y^n$ of
+	\[
+		Y_t^n=\frac{1}{n}X_0 + B_t+\int_\mathbb{R} \hat{L}_t^b(Y^n)\,\nu_n(db) .
+	\]
+	The measures $\nu_n$ satisfy the assumptions of Theorem~\ref{th331} with
+	$\phi_n = 1$, and $f_{\nu_n}(x) = f_\nu(nx)$ converges boundedly to $1$ for $x<0$
+	and to $f_\nu(+\infty)$ for $x>0$. The limiting function
+	$f = 1_{]-\infty,0[} + f_\nu(+\infty)1_{[0,\infty[}$ corresponds to
+	$\nu = \beta\delta_0$ with $\frac{1-\beta}{1+\beta} = f_\nu(+\infty)$, and
+	Theorem~\ref{th331} shows that $Y^n$ converges in $L^1$, uniformly on compact time
+	intervals, to the skew Brownian motion of parameter $\beta$ started at $0$.
+\end{proof}
+
+\begin{remark}
+	Corollary~\ref{cor331} gives convergence to a skew Brownian motion with
+	parameter $\beta \in\,]-1,1[$. The extreme values $\beta=\pm 1$, which correspond
+	to reflected Brownian motion, cannot be obtained in this way. One can however
+	prove a similar convergence result towards reflected Brownian motion: if
+	$g_n\in L^1(\mathbb{R})$, $g_n\geqslant 0$, $g_n$ vanishes outside
+	$[-\varepsilon_n,\varepsilon_n]$ with $\varepsilon_n \to 0$ and
+	$\int_\mathbb{R} g_n(x)\,dx \to \infty$, then the solutions of
+	$X_t^n = B_t + \int_0^t g_n (X_s^n)\,ds$ converge in law to $|B|$.
+\end{remark}
+
+As a last application of Theorem~\ref{th331}, we prove a comparison theorem.
+
+\begin{theorem}\label{th:comparison-nu}
+	Let $\nu,\mu \in M(\mathbb{R})$ and $\phi\in BV(\mathbb{R})$. Let $X$ and $Y$ be the
+	solutions, with respect to the same Brownian motion, of
+	\[
+		X_t=X_0 + \int_0^t \phi(X_s)\,dB_s+\int_\mathbb{R}\hat{L}_t^a(X)\,\nu(da), \qquad
+		Y_t=Y_0 + \int_0^t \phi(Y_s)\,dB_s+\int_\mathbb{R}\hat{L}_t^a(Y)\,\mu(da),
+	\]
+	where $X_0, Y_0\in L^1$. If $X_0 \geqslant Y_0$ and $\nu \geqslant \mu$, then almost
+	surely $X_t \geqslant Y_t$ for all $t$.
+\end{theorem}
+
+\begin{proof}
+	Suppose first that $\nu(da)=g(a)\,da$ and $\mu(da)=k(a)\,da$, where $g\geqslant k$
+	are Lipschitz, and that $\phi$ is Lipschitz. By \eqref{eq32}, $X$ and $Y$ solve
+	classical It\^o equations with drifts $g\phi^2\geqslant k\phi^2$, which are Lipschitz,
+	and $\phi$ satisfies (A). Theorem~\ref{th32} then gives $X \geqslant Y$.
+
+	In the general case, we approximate. Let
+	$\tilde\nu = \nu^c + \sum_a \operatorname{artanh}(\nu(\{a\}))\,\delta_a$ and define
+	$\tilde\mu$ similarly; since $\nu-\mu\geqslant 0$, both its diffuse part
+	$\nu^c - \mu^c$ and its atoms are nonnegative, so $\tilde\nu\geqslant\tilde\mu$.
+	Let $\nu_n = \tilde\nu * \rho_n$ and $\mu_n = \tilde\mu * \rho_n$, where $(\rho_n)$ is a
+	smooth approximation of the identity, and let $\phi_n = \phi * \rho_n$. Then
+	$\nu_n \geqslant \mu_n$ have Lipschitz densities, $\phi_n$ is Lipschitz with
+	$\inf\phi\leqslant\phi_n\leqslant\sup\phi$, and $\phi_n\to\phi$ in $L^1_{\mathrm{loc}}$.
+	Moreover $f_{\nu_n}(x) = \exp(-2\nu_n(]-\infty,x]))$ converges, at every $x$ which is
+	not an atom of $\nu$, to
+	$\exp(-2\tilde\nu(]-\infty,x])) = f_\nu(x)$, because
+	$\exp(-2\operatorname{artanh} c) = \frac{1-c}{1+c}$; as in Remark~\ref{rem:limitnu},
+	an atom $c$ must be spread with mass $\operatorname{artanh}(c)$, not $c$. Hence
+	$f_{\nu_n}\to f_\nu$ and similarly $f_{\mu_n}\to f_\mu$ in $L^1_{\mathrm{loc}}$, and the
+	measures $\nu_n$, $\mu_n$ have total mass at most $|\tilde\nu|(\mathbb{R})$ and
+	$|\tilde\mu|(\mathbb{R})$ and no atoms. Let $X^n$ and $Y^n$ be the solutions associated with
+	$(\phi_n,\nu_n)$ and $(\phi_n,\mu_n)$ and the initial values $X_0$, $Y_0$. By the
+	first step, $X^n\geqslant Y^n$, and by Theorem~\ref{th331}, $X^n_t\to X_t$ and
+	$Y^n_t\to Y_t$ in $L^1$ for every $t$. Hence $X_t\geqslant Y_t$ almost surely for
+	every $t$, and the result follows by continuity.
+\end{proof}

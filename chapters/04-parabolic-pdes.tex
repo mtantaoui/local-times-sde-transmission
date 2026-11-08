@@ -1,0 +1,419 @@
+\chapter{Parabolic Partial Differential Equations}\label{ch:pde}
+
+In this chapter we show how Brownian motion can be used to construct and
+characterise solutions of parabolic equations. We follow the presentation of
+\citet{Durrett1996}. The chapter serves as a model for
+Chapter~\ref{ch:sbm}: there, Brownian motion is replaced by the skew Brownian
+motion, and the same martingale arguments produce a heat equation with a
+\emph{transmission condition} at $0$ (see Section~\ref{sec:pde-to-sbm}).
+
+\section{Parabolic equations}
+
+Let $B$ be a $d$-dimensional Brownian motion, and write $\E_x$ for the
+expectation when $B_0 = x$. We consider the equations
+\begin{align}
+	\frac{\partial u}{\partial t} & = \frac{1}{2}\Delta u, \label{eq:heat}        \\
+	\frac{\partial u}{\partial t} & = \frac{1}{2}\Delta u + g, \label{eq:inhom}   \\
+	\frac{\partial u}{\partial t} & = \frac{1}{2}\Delta u + c\,u, \label{eq:fk}
+\end{align}
+in $(0,\infty)\times\mathbb{R}^d$, subject to the boundary condition
+\begin{equation}\label{eq:bc}
+	u \text{ is continuous at each point of } \{0\}\times\mathbb{R}^d
+	\text{ and } u(0,x) = f(x) \text{ for } x\in\mathbb{R}^d .
+\end{equation}
+Here
+\[
+	\Delta u = \frac{\partial^2 u}{\partial x_1^2} + \dots + \frac{\partial^2 u}{\partial x_d^2}
+\]
+is the Laplacian in the space variables. By a \emph{classical solution} we mean
+one that has enough derivatives for the equation to make sense, that is,
+$u \in C^{1,2}$: the functions on $(0,\infty)\times\mathbb{R}^d$ that have one
+continuous derivative with respect to $t$ and two continuous derivatives with
+respect to the $x_i$. The continuity of $u$ in \eqref{eq:bc} is needed to
+connect the equation, which holds in $(0,\infty)\times\mathbb{R}^d$, with the
+initial value $u(0,x) = f(x)$, which holds on $\{0\}\times\mathbb{R}^d$. Note
+that \eqref{eq:bc} cannot hold unless
+$f:\mathbb{R}^d\to\mathbb{R}$ is continuous.
+
+We will see that, under suitable assumptions, the solutions of
+\eqref{eq:heat}, \eqref{eq:inhom} and \eqref{eq:fk} are given respectively by
+\[
+	\E_x f(B_t), \qquad
+	\E_x\Bigl(f(B_t) + \int_0^t g(t-s,B_s)\,ds\Bigr), \qquad
+	\E_x\Bigl(f(B_t)\exp\Bigl(\int_0^t c(t-s,B_s)\,ds\Bigr)\Bigr).
+\]
+The three cases are treated by the same procedure, in four steps: find a local
+martingale, deduce uniqueness, show that the candidate is a solution when it is
+smooth, and give conditions for smoothness. We carry it out for the heat
+equation \eqref{eq:heat} and for the Feynman--Kac equation \eqref{eq:fk}; the
+inhomogeneous equation \eqref{eq:inhom} is handled in the same way (see
+\citet{Durrett1996}).
+
+\subsection{The heat equation}
+
+\subsubsection{Bounded initial data}
+In this section we consider the problem
+\begin{enumerate}[label=(\Alph*)]
+	\item\label{heatA} $u\in C^{1,2}$ and $\dfrac{\partial u}{\partial t} = \dfrac{1}{2}\Delta u$ in $(0,\infty)\times\mathbb{R}^d$;
+	\item\label{heatB} $u$ is continuous at each point of $\{0\}\times\mathbb{R}^d$ and $u(0,x) = f(x)$.
+\end{enumerate}
+The equation takes its name from the fact that, if the units are chosen
+suitably, $u(t,x)$ is the temperature at the point $x\in\mathbb{R}^d$ at time
+$t$ when the temperature profile at time $0$ is $f$.
+
+The first step is to find a local martingale.
+
+\begin{theorem}\label{th:heat-mart}
+	If $u$ satisfies \ref{heatA}, then for every $t>0$ the process
+	$M_s = u(t-s,B_s)$ is a local martingale on $[0,t)$.
+\end{theorem}
+\begin{proof}
+	Apply Itô's formula to $u(x_0,x_1,\dots,x_d)$ with $X^0_s = t-s$ and
+	$X^i_s = B^i_s$ for $1\leqslant i\leqslant d$. Since $X^0$ has bounded
+	variation with $dX^0_r = -dr$, and the $X^i$, $1\leqslant i\leqslant d$, are
+	independent Brownian motions,
+	\[
+		\langle X^i,X^j\rangle_r =
+		\begin{cases}
+			r & \text{if } 1\leqslant i=j\leqslant d, \\
+			0 & \text{otherwise,}
+		\end{cases}
+	\]
+	and for $s<t$
+	\begin{align*}
+		u(t-s,B_s) - u(t,B_0)
+		 & = \int_0^s \Bigl(-\frac{\partial u}{\partial t}
+		+ \frac{1}{2}\Delta u\Bigr)(t-r,B_r)\,dr
+		+ \int_0^s \nabla u(t-r,B_r)\cdot dB_r .
+	\end{align*}
+	By \ref{heatA} the first integral vanishes, and the second is a local
+	martingale.
+\end{proof}
+
+The next step is a uniqueness theorem. We write $u$ for a generic solution and
+\[
+	v(t,x) = \E_x f(B_t)
+\]
+for our candidate solution.
+
+\begin{theorem}\label{th412}
+	If $u$ is a bounded solution of \ref{heatA}--\ref{heatB}, then $u = v$.
+\end{theorem}
+\begin{proof}
+	Fix $t>0$. Since $u$ is bounded, the local martingale
+	$M_s = u(t-s,B_s)$, $0\leqslant s<t$, of Theorem~\ref{th:heat-mart} is a
+	bounded martingale. By the martingale convergence theorem,
+	$M_t = \lim_{s\uparrow t}M_s$ exists almost surely. As $s\uparrow t$,
+	$(t-s,B_s)\to(0,B_t)$, so \ref{heatB} gives $M_t = f(B_t)$. Since $M$ is
+	uniformly integrable,
+	\[
+		u(t,x) = \E_x M_0 = \E_x M_t = \E_x f(B_t) = v(t,x). \qedhere
+	\]
+\end{proof}
+
+Theorem~\ref{th412} tells us what a bounded solution must be. The next step is
+to find conditions under which $v$ is a solution. We first show that if $v$ is
+smooth enough, then it satisfies the equation.
+
+\begin{theorem}\label{th:heat-smooth-sol}
+	Suppose that $f$ is bounded. If $v\in C^{1,2}$, then $v$ satisfies
+	\ref{heatA}.
+\end{theorem}
+\begin{proof}
+	Fix $t>0$. The Markov property implies that, for $0\leqslant s<t$,
+	\[
+		\E_x\bigl(f(B_t)\,\big|\,\mathcal{F}_s\bigr) = \E_{B_s}f(B_{t-s}) = v(t-s,B_s),
+	\]
+	so $v(t-s,B_s)$ is a martingale on $[0,t)$. If $v\in C^{1,2}$, the
+	computation in the proof of Theorem~\ref{th:heat-mart} gives
+	\[
+		v(t-s,B_s) - v(t,B_0) = \int_0^s\Bigl(-\frac{\partial v}{\partial t}
+		+ \frac{1}{2}\Delta v\Bigr)(t-r,B_r)\,dr + \text{a local martingale.}
+	\]
+	The left-hand side is a local martingale, so the integral on the right is a
+	continuous local martingale of locally bounded variation, starting from $0$;
+	hence it is identically $0$ almost surely.
+
+	Let $\varphi = -\partial_t v + \frac{1}{2}\Delta v$, which is continuous.
+	Suppose that $\varphi(t_0,x_0) \neq 0$, say $\varphi>0$ on the ball of
+	radius $\delta\in(0,t_0)$ centred at $(t_0,x_0)$. Take $t=t_0$ and
+	$B_0 = x_0$, and let
+	$\tau = \inf\{r : |B_r - x_0|\geqslant\delta/2\}\wedge\delta/2 > 0$. For
+	$r<\tau$, the point $(t_0-r,B_r)$ lies in that ball, so
+	$\int_0^{s}\varphi(t_0-r,B_r)\,dr>0$ for $0<s\leqslant\tau$, which is a
+	contradiction. Hence $\varphi\equiv0$.
+\end{proof}
+
+It is easy to give conditions under which $v$ satisfies the boundary condition
+\ref{heatB}.
+
+\begin{theorem}\label{th414}
+	If $f$ is bounded and continuous, then $v$ satisfies \ref{heatB}.
+\end{theorem}
+\begin{proof}
+	Under $\mathbb{P}_x$, $B_t - B_0$ has the law of $t^{1/2}N$, where $N$ is a
+	standard normal vector. So if $t_n\to0$ and $x_n\to x$, the bounded
+	convergence theorem gives
+	\[
+		v(t_n,x_n) = \E f\bigl(x_n + t_n^{1/2}N\bigr) \longrightarrow f(x). \qedhere
+	\]
+\end{proof}
+
+The final step in showing that $v$ is a solution is to find conditions that
+guarantee that it is smooth. In this case the computations are not difficult.
+
+\begin{theorem}\label{th415}
+	If $f$ is bounded, then $v\in C^{1,2}$, and hence $v$ satisfies \ref{heatA}.
+\end{theorem}
+\begin{proof}
+	By definition,
+	\[
+		v(t,x) = \E_x f(B_t) = \int p_t(x,y)\,f(y)\,dy,
+		\qquad
+		p_t(x,y) = (2\pi t)^{-d/2}\exp\Bigl(-\frac{|x-y|^2}{2t}\Bigr).
+	\]
+	A little calculus gives
+	\begin{align*}
+		\frac{\partial}{\partial x_i}p_t(x,y)                    & = -\frac{x_i-y_i}{t}\,p_t(x,y),                                \\
+		\frac{\partial^2}{\partial x_i^2}p_t(x,y)                & = \frac{(x_i-y_i)^2-t}{t^2}\,p_t(x,y),                         \\
+		\frac{\partial^2}{\partial x_i\,\partial x_j}p_t(x,y)    & = \frac{(x_i-y_i)(x_j-y_j)}{t^2}\,p_t(x,y), \qquad i\neq j,    \\
+		\frac{\partial}{\partial t}p_t(x,y)                      & = \Bigl(-\frac{d}{2t} + \frac{|x-y|^2}{2t^2}\Bigr)\,p_t(x,y).
+	\end{align*}
+	Fix $0<a<b<\infty$ and $x_0\in\mathbb{R}^d$. For $t\in[a,b]$ and
+	$|x-x_0|\leqslant1$, each of these derivatives is bounded in absolute value
+	by
+	\[
+		h(y) = C\,\bigl(1+|y-x_0|^2\bigr)\exp\Bigl(-\frac{\bigl((|y-x_0|-1)^+\bigr)^2}{2b}\Bigr),
+	\]
+	for a constant $C$ depending only on $a$, $b$ and $d$, and $h$ is integrable.
+	Since $f$ is bounded, $h\,\|f\|_\infty$ dominates all the integrands, so
+	the dominated convergence theorem shows that the integrals
+	$\int \partial p_t(x,y)\,f(y)\,dy$ of each of the derivatives above are finite
+	and continuous in $(t,x)\in(0,\infty)\times\mathbb{R}^d$. The domination
+	also gives condition~\ref{lem:diff-int} of Lemma~\ref{lem:diff} below. Applying
+	that lemma once with $K = p$, and once more with $K = \partial p/\partial x_i$
+	(and in the variable $t$ in the same way), shows that the derivatives of $v$
+	can be computed by differentiating under the integral sign. Hence
+	$v\in C^{1,2}$, and Theorem~\ref{th:heat-smooth-sol} shows that $v$
+	satisfies \ref{heatA}.
+\end{proof}
+
+The following lemma on differentiating under the integral sign is lengthy to
+state but short to prove, since we assume everything the proof needs.
+
+\begin{lemma}\label{lem:diff}
+	Let $(S,\mathcal{S},m)$ be a $\sigma$-finite measure space and
+	$g:S\to\mathbb{R}$ be measurable. Let $G\subset\mathbb{R}^d$ be open,
+	$x^*\in G$, $1\leqslant i\leqslant d$, and $h_0>0$ such that
+	$x^*+\theta e_i\in G$ for $|\theta|\leqslant h_0$. Suppose that:
+	\begin{enumerate}[label=(\roman*)]
+		\item\label{lem:diff-def} $K:G\times S\to\mathbb{R}$ is measurable,
+		      $\int_S|K(x,y)g(y)|\,dm(y)<\infty$ for $x\in G$, and
+		      $u(x) = \int_S K(x,y)\,g(y)\,dm(y)$;
+		\item\label{lem:diff-ftc} there is a measurable
+		      $\partial_iK:G\times S\to\mathbb{R}$ such that
+		      $K(x^*+he_i,y) - K(x^*,y) = \int_0^h\partial_iK(x^*+\theta e_i,y)\,d\theta$
+		      for $|h|\leqslant h_0$ and $y\in S$;
+		\item\label{lem:diff-int}
+		      $\int_S\int_{-h_0}^{h_0}|\partial_iK(x^*+\theta e_i,y)\,g(y)|\,d\theta\,dm(y)<\infty$;
+		\item\label{lem:diff-cont} the function
+		      $w(x) = \int_S\partial_iK(x,y)\,g(y)\,dm(y)$ is well defined near
+		      $x^*$ and continuous at $x^*$.
+	\end{enumerate}
+	Then $\partial u/\partial x_i$ exists at $x^*$ and
+	$\frac{\partial u}{\partial x_i}(x^*) = w(x^*)$.
+\end{lemma}
+\begin{proof}
+	By \ref{lem:diff-def}, \ref{lem:diff-ftc} and Fubini's theorem, which is
+	justified by \ref{lem:diff-int}, for $0<|h|\leqslant h_0$,
+	\begin{align*}
+		u(x^*+he_i) - u(x^*) & = \int_S\bigl(K(x^*+he_i,y) - K(x^*,y)\bigr)g(y)\,dm(y) \\
+		                     & = \int_0^h\int_S\partial_iK(x^*+\theta e_i,y)\,g(y)\,dm(y)\,d\theta
+		= \int_0^h w(x^*+\theta e_i)\,d\theta .
+	\end{align*}
+	Dividing by $h$ and letting $h\to0$, the result follows from
+	\ref{lem:diff-cont}.
+\end{proof}
+
+\subsubsection{Unbounded initial data}
+For some applications the assumption that $f$ is bounded is too restrictive.
+To see which unbounded $f$ we can allow, observe that at the bare minimum we
+need $\E_x|f(B_t)|<\infty$ for all $t$ and $x$. Since
+\[
+	\E_x|f(B_t)| = \int(2\pi t)^{-d/2}\exp\Bigl(-\frac{|x-y|^2}{2t}\Bigr)|f(y)|\,dy,
+\]
+a condition that guarantees this for locally bounded $f$ is
+\begin{equation}\label{eq:growth}
+	|x|^{-2}\log^+|f(x)|\longrightarrow 0 \qquad\text{as } |x|\to\infty .
+\end{equation}
+Indeed, \eqref{eq:growth} means that for every $\varepsilon>0$ there is
+$C_\varepsilon$ with $|f(x)|\leqslant C_\varepsilon e^{\varepsilon|x|^2}$.
+Replacing the bounded convergence theorem by the dominated convergence theorem
+in the proofs of Theorems~\ref{th414} and~\ref{th415}, it is not hard to show
+the following.
+
+\begin{theorem}\label{th:heat-unbounded}
+	If $f$ is continuous and satisfies \eqref{eq:growth}, then
+	$v(t,x) = \E_x f(B_t)$ satisfies \ref{heatA} and \ref{heatB}.
+\end{theorem}
+
+\begin{remark}
+	The uniqueness argument of Theorem~\ref{th412} uses the boundedness of $u$
+	in an essential way, and uniqueness does fail without a growth restriction:
+	a classical example of Tychonoff gives a solution of
+	\ref{heatA}--\ref{heatB} with $f\equiv0$ that is not identically zero.
+	Uniqueness holds again in classes of functions with controlled growth, such
+	as $|u(t,x)|\leqslant Ce^{a|x|^2}$ on $[0,T]\times\mathbb{R}^d$; see
+	\citet{Friedman1964}.
+\end{remark}
+
+\subsection{The Feynman--Kac formula}
+
+In this section we add $cu$ to the right-hand side of the heat equation. That
+is, we study
+\begin{enumerate}[label=(\Alph*)]
+	\item\label{fkA} $u\in C^{1,2}$ and $\dfrac{\partial u}{\partial t} = \dfrac{1}{2}\Delta u + c\,u$ in $(0,\infty)\times\mathbb{R}^d$;
+	\item\label{fkB} $u$ is continuous at each point of $\{0\}\times\mathbb{R}^d$ and $u(0,x) = f(x)$.
+\end{enumerate}
+If $c(t,x)\leqslant0$, this equation describes heat flow with cooling: $u(t,x)$
+is the temperature at the point $x$ at time $t$ when heat at $x$ at time $t$
+dissipates at the rate $-c(t,x)$.
+
+As before, the first step is to find a local martingale.
+
+\begin{theorem}\label{th:fk-mart}
+	Fix $t>0$ and let $c^t_s = \int_0^s c(t-r,B_r)\,dr$. If $u$ satisfies
+	\ref{fkA}, then
+	\[
+		M_s = u(t-s,B_s)\exp(c^t_s)
+	\]
+	is a local martingale on $[0,t)$.
+\end{theorem}
+\begin{proof}
+	Apply Itô's formula with $X^0_s = t-s$, $X^i_s = B^i_s$ for
+	$1\leqslant i\leqslant d$, and $X^{d+1}_s = c^t_s$. The processes $X^0$
+	and $X^{d+1}$ have bounded variation, and the brackets of the $X^i$ are as in
+	the proof of Theorem~\ref{th:heat-mart}, so
+	\begin{align*}
+		u(t-s,B_s)\exp(c^t_s) - u(t,B_0)
+		 & = \int_0^s -\frac{\partial u}{\partial t}(t-r,B_r)\exp(c^t_r)\,dr
+		+ \int_0^s\exp(c^t_r)\nabla u(t-r,B_r)\cdot dB_r                       \\
+		 & \quad + \int_0^s u(t-r,B_r)\exp(c^t_r)\,dc^t_r
+		+ \frac{1}{2}\int_0^s\Delta u(t-r,B_r)\exp(c^t_r)\,dr .
+	\end{align*}
+	Using $dc^t_r = c(t-r,B_r)\,dr$ and rearranging,
+	\begin{align*}
+		u(t-s,B_s)\exp(c^t_s) - u(t,B_0)
+		 & = \int_0^s\Bigl(-\frac{\partial u}{\partial t} + c\,u
+		+ \frac{1}{2}\Delta u\Bigr)(t-r,B_r)\exp(c^t_r)\,dr                     \\
+		 & \quad + \int_0^s\exp(c^t_r)\nabla u(t-r,B_r)\cdot dB_r .
+	\end{align*}
+	By \ref{fkA} the first integral vanishes, and the second is a local
+	martingale.
+\end{proof}
+
+The next step, again, is a uniqueness result. Our candidate solution is now
+\[
+	v(t,x) = \E_x\bigl(f(B_t)\exp(c^t_t)\bigr).
+\]
+
+\begin{theorem}\label{th:fk-unique}
+	Suppose that $c$ is bounded. If $u$ is a solution of \ref{fkA}--\ref{fkB}
+	that is bounded on $[0,T]\times\mathbb{R}^d$ for every $T<\infty$, then
+	$u = v$.
+\end{theorem}
+\begin{proof}
+	Fix $t>0$. If $|c|\leqslant M$ and $|u|\leqslant K$ on
+	$[0,t]\times\mathbb{R}^d$, then $|M_s|\leqslant Ke^{Mt}$ for
+	$0\leqslant s<t$, so the local martingale of Theorem~\ref{th:fk-mart} is a
+	bounded martingale. By \ref{fkB} and the continuity of $s\mapsto c^t_s$,
+	\[
+		M_t = \lim_{s\uparrow t}M_s = f(B_t)\exp(c^t_t),
+	\]
+	and since $M$ is uniformly integrable,
+	$u(t,x) = \E_x M_0 = \E_x M_t = v(t,x)$.
+\end{proof}
+
+As before, it is easy to show that if $v$ is smooth enough, it is a solution.
+
+\begin{theorem}\label{th:fk-smooth-sol}
+	Suppose that $f$ is bounded and that $c$ is bounded and continuous. If
+	$v\in C^{1,2}$, then $v$ satisfies \ref{fkA}.
+\end{theorem}
+\begin{proof}
+	Fix $t>0$ and $0\leqslant s<t$. Since
+	$c^t_t - c^t_s = \int_0^{t-s}c\bigl((t-s)-r,B_{s+r}\bigr)\,dr$, the Markov
+	property implies that
+	\[
+		\E_x\bigl(f(B_t)\exp(c^t_t)\,\big|\,\mathcal{F}_s\bigr)
+		= \exp(c^t_s)\,\E_{B_s}\bigl(f(B_{t-s})\exp(c^{t-s}_{t-s})\bigr)
+		= \exp(c^t_s)\,v(t-s,B_s).
+	\]
+	The left-hand side is a martingale, so the right-hand side is also. If
+	$v\in C^{1,2}$, the computation in the proof of Theorem~\ref{th:fk-mart}
+	shows that
+	\[
+		v(t-s,B_s)\exp(c^t_s) - v(t,B_0)
+		= \int_0^s\Bigl(-\frac{\partial v}{\partial t} + c\,v
+		+ \frac{1}{2}\Delta v\Bigr)(t-r,B_r)\exp(c^t_r)\,dr
+		+ \text{a local martingale.}
+	\]
+	As in the proof of Theorem~\ref{th:heat-smooth-sol}, the integral is a
+	continuous local martingale of locally bounded variation, hence identically
+	$0$. Since $\exp(c^t_r)>0$ and
+	$-\partial_t v + c\,v + \frac{1}{2}\Delta v$ is continuous, the same
+	argument shows that $-\partial_t v + c\,v + \frac{1}{2}\Delta v\equiv0$.
+\end{proof}
+
+The next step is to give conditions guaranteeing that $v$ satisfies
+\ref{fkB}. As before, we begin with the case in which everything is bounded.
+
+\begin{theorem}\label{th:fk-bc}
+	If $c$ is bounded and $f$ is bounded and continuous, then $v$ satisfies
+	\ref{fkB}.
+\end{theorem}
+\begin{proof}
+	If $|c|\leqslant M$, then $e^{-Mt}\leqslant\exp(c^t_t)\leqslant e^{Mt}$,
+	so $|\exp(c^t_t)-1|\leqslant e^{Mt}-1$. Hence
+	\[
+		\bigl|v(t,x) - \E_x f(B_t)\bigr|
+		\leqslant\|f\|_\infty\,\E_x\bigl|\exp(c^t_t)-1\bigr|
+		\leqslant\|f\|_\infty\bigl(e^{Mt}-1\bigr)\longrightarrow 0
+	\]
+	as $t\to0$, uniformly in $x$. By Theorem~\ref{th414},
+	$(t,x)\mapsto\E_x f(B_t)$ is continuous at each point of
+	$\{0\}\times\mathbb{R}^d$, and the result follows.
+\end{proof}
+
+This brings us to the problem of determining when $v$ is smooth enough to be a
+solution. Here the computations are more involved than for the heat equation,
+and we only state the result; see \citet{Durrett1996} and
+\citet{Friedman1964}.
+
+\begin{theorem}\label{th:fk-smooth}
+	Suppose that $f$ is bounded and Hölder continuous, and that $c$ is bounded
+	and locally Hölder continuous. Then $v\in C^{1,2}$, and hence $v$ satisfies
+	\ref{fkA}.
+\end{theorem}
+
+\section{From the heat equation to the transmission problem}\label{sec:pde-to-sbm}
+
+The arguments above use only two properties of Brownian motion: the Markov
+property, and Itô's formula for $u(t-s,B_s)$. In Chapter~\ref{ch:sbm} we
+replace $B$ by the skew Brownian motion
+\[
+	X_t = x + W_t + \beta\hat{L}^0_t(X), \qquad \beta\in[-1,1],
+\]
+where $\hat{L}^0(X)$ is the symmetric local time of $X$ at $0$
+(Definition~\ref{def:symlocaltime}). Away from $0$, $X$ behaves like a Brownian
+motion, so $u(t,x) = \E_x f(X_t)$ again solves the heat equation \eqref{eq:heat}
+on $(0,\infty)\times(\mathbb{R}\setminus\{0\})$. At $0$, Itô's formula must be
+replaced by the Itô--Tanaka formula (Theorem~\ref{th:symitotanaka}), which
+produces an additional local time term. Requiring that this term vanish, as
+the $dr$-integral vanished in Theorem~\ref{th:heat-smooth-sol}, gives the
+\emph{transmission condition}
+\[
+	(1+\beta)\frac{\partial u}{\partial x}(t,0^+) = (1-\beta)\frac{\partial u}{\partial x}(t,0^-),
+\]
+together with the continuity of $u(t,\cdot)$ at $0$. This is carried out in
+Section~\ref{sec:sbm-pde}.

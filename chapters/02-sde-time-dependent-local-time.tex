@@ -1,0 +1,433 @@
+\chapter{SDEs Involving the Local Time at Zero}
+
+In this chapter we study the one-dimensional stochastic differential equation
+\begin{equation}\label{eq21}
+	X_t = x+ B_t + \int_0^t \alpha(s)\,dL_s ,
+\end{equation}
+where $x\in\mathbb{R}$, $B$ is a Brownian motion started at $0$,
+$L = L^0(X)$ is the (right-continuous) local time at $0$ of the unknown
+semimartingale $X$, as defined in Chapter~1, and
+$\alpha : \mathbb{R}_+ \to \mathbb{R}$ is a deterministic, locally bounded Borel
+function. The coefficient of the local time depends on time, which is why the
+equation is called \emph{inhomogeneous}.
+
+A solution of \eqref{eq21} is a pair $(X,B)$ of continuous adapted processes on
+a filtered probability space satisfying the usual conditions, such that $B$ is
+an $(\mathcal{F}_t)$-Brownian motion and \eqref{eq21} holds almost surely for
+all $t$. We say that \emph{uniqueness in law} holds if any two solutions, possibly
+defined on different spaces, have the same law, and that \emph{pathwise
+uniqueness} holds if any two solutions defined on the same space with the same
+Brownian motion are indistinguishable.
+
+\begin{theorem}\label{th21}
+	If $\alpha(s)\leqslant \frac{1}{2}$ for every $s\geqslant 0$, pathwise
+	uniqueness holds for \eqref{eq21}.
+\end{theorem}
+
+\begin{remark}\label{rem:alpha-sbm}
+	Let $X$ be a solution of \eqref{eq21} and let $\hat{L} = \hat{L}^0(X)$ be its
+	symmetric local time at $0$. Since $X = x + B + V$ with
+	$V = \int_0^\cdot \alpha(s)\,dL_s$, and $dL$ is carried by $\{s : X_s = 0\}$,
+	Theorem~\ref{th8} gives
+	\begin{equation}\label{eq:jump21}
+		L_t - L^{0-}_t = 2\int_0^t 1_{\{X_s = 0\}}\,\alpha(s)\,dL_s = 2\int_0^t\alpha(s)\,dL_s,
+		\qquad
+		\hat{L}_t = \int_0^t (1-\alpha(s))\,dL_s .
+	\end{equation}
+	When $\alpha(s)=\alpha<1$ is constant, \eqref{eq21} can therefore be written
+	$X_t = x + B_t + \frac{\alpha}{1-\alpha}\hat{L}_t$, and $X$ is the skew
+	Brownian motion of parameter $\beta = \frac{\alpha}{1-\alpha}$ studied in
+	Chapter~\ref{ch:sbm}. The condition $\alpha\leqslant \frac{1}{2}$ corresponds
+	exactly to $\beta \in \,]-1,1]$, the value $\beta = 1$ (reflected Brownian
+	motion) being obtained for $\alpha = \frac{1}{2}$.
+\end{remark}
+
+To prove Theorem~\ref{th21} we follow the method of \citet{LeGall1983},
+itself inspired by \citet{Perkins1982}: we first prove uniqueness in law for
+\eqref{eq21}, and then show that if $X^1$ and $X^2$ are two solutions with the
+same Brownian motion, then $X^1 \vee X^2$ is also a solution. These two facts
+imply pathwise uniqueness. We start with a deterministic lemma due to
+Skorokhod \citep[Lemma~VI.2.1]{RevuzYor1999}.
+
+\begin{lemma}[Skorokhod's lemma]\label{lem:skorokhod}
+	Let $y$ be a continuous real function on $[0,\infty[$ with
+	$y(0)\geqslant 0$. There exists a unique pair $(z,l)$ of continuous functions
+	on $[0,\infty[$ such that
+	\begin{enumerate}[label=(\roman*)]
+		\item $z = y + l$;
+		\item $z \geqslant 0$;
+		\item $l$ is increasing, $l(0) = 0$, and the measure $dl$ is carried by
+		      $\{u : z(u) = 0\}$, that is, $\int_0^\infty 1_{\{z(u)>0\}}\,dl(u) = 0$.
+	\end{enumerate}
+	This pair is given by
+	\[
+		l(u)=\sup_{0\leqslant s \leqslant u} \big(-y(s)\big)\vee 0 , \qquad z(u) = y(u) + l(u).
+	\]
+\end{lemma}
+
+\begin{proof}
+	\emph{Existence.} The function $l$ defined above is continuous, increasing,
+	$l(0) = 0$, and $z = y + l \geqslant 0$ since $l \geqslant -y$. Let $t$ be such
+	that $z(t) > 0$, that is $-y(t) < l(t)$. By continuity there is $\delta > 0$
+	such that $-y(s) < l(t)$ for $|s - t| \leqslant \delta$. For
+	$u \in [t, t+\delta]$, we get
+	$l(u) = l(t) \vee \sup_{t\leqslant s\leqslant u}(-y(s)\vee 0) = l(t)$. If
+	$l(t) > 0$, the same argument on $[t-\delta, t]$ gives
+	$\sup_{t-\delta\leqslant s\leqslant t}(-y(s)\vee 0) < l(t)$, hence
+	$l(t-\delta) = l(t)$; if $l(t) = 0$, then $l = 0$ on $[0,t]$. In both cases $l$
+	is constant on a neighbourhood of $t$. The open set $\{z > 0\}$ is a countable
+	union of such neighbourhoods, so $dl(\{z>0\}) = 0$.
+
+	\emph{Uniqueness.} Let $(z_1, l_1)$ and $(z_2, l_2)$ be two solutions. Then
+	$z_1 - z_2 = l_1 - l_2$ is continuous and of finite variation, so by the
+	integration by parts formula for such functions,
+	\begin{align*}
+		0\leqslant (z_1 (u)- z_2 (u))^2 & = 2\int_0^u (z_1(v)-z_2 (v))\,d(l_1-l_2)(v)               \\
+		                                & = -2\int_0^u z_1 (v)\, dl_2(v)-2\int_0^u z_2(v)\,dl_1(v)\leqslant 0,
+	\end{align*}
+	where we used $\int_0^u z_i\,dl_i = 0$ by (iii), and $z_j \geqslant 0$,
+	$dl_i\geqslant 0$. Hence $z_1 = z_2$ and $l_1 = l_2$.
+\end{proof}
+
+An important application of Skorokhod's lemma is the following theorem of
+Lévy. Let $S_t = \sup_{s\leqslant t} B_s$.
+
+\begin{theorem}[Lévy's theorem]\label{lev}
+	The following identity in law holds:
+	\[
+		\big(|B_t|,L_t^0(B) ; t\geqslant 0\big)\overset{(\text{law})}{=}\big(S_t - B_t , S_t; t\geqslant 0\big).
+	\]
+\end{theorem}
+
+\begin{proof}
+	By Tanaka's formula, $|B_t| = \beta_t + L^0_t(B)$, where
+	$\beta_t = \int_0^t \sgn(B_s)\,dB_s$ is a Brownian motion by Lévy's
+	characterisation. By Lemma~\ref{lem:skorokhod} applied to $y = \beta$,
+	$L^0_t(B) = \sup_{s\leqslant t}(-\beta_s)$. Hence, with $W = -\beta$,
+	\[
+		\big(|B_t|, L^0_t(B)\big) = \Big(\sup_{s\leqslant t} W_s - W_t, \sup_{s\leqslant t} W_s\Big),
+	\]
+	and the result follows since $W$ and $B$ have the same law.
+\end{proof}
+
+The same argument gives the following characterisation of reflected Brownian
+motion.
+
+\begin{proposition}\label{pro21}
+	Let $z\geqslant 0$ and let $B$ be a Brownian motion started at $0$. Let $X$
+	and $K$ be continuous processes such that
+	\begin{enumerate}[label=(\roman*)]
+		\item $X_t=z-B_t + K_t \geqslant 0$ for all $t$;
+		\item $K_0 = 0$ and $t\mapsto K_t$ is increasing;
+		\item $\int_0^\infty 1_{]0,+\infty [}(X_s)\, dK_s = 0$.
+	\end{enumerate}
+	Then $X$ has the same law as $|W|$, where $W$ is a Brownian motion started at $z$.
+\end{proposition}
+
+\begin{proof}
+	By Lemma~\ref{lem:skorokhod}, $X = \Phi(z - B)$, where $\Phi$ maps $y$ to the
+	function $z$ of the lemma. By Tanaka's formula,
+	$|W_t| = z + \gamma_t + L^0_t(W)$ with $\gamma_t = \int_0^t \sgn(W_s)\,dW_s$ a
+	Brownian motion, so $|W| = \Phi(z + \gamma)$ by the same lemma. Since $-B$ and
+	$\gamma$ are Brownian motions started at $0$, $X$ and $|W|$ have the same law.
+\end{proof}
+
+We now state the two general facts on which the method relies. The first one
+requires the following extension of the occupation times formula.
+
+\begin{lemma}\label{lem:occupation-weighted}
+	Let $X$ be a continuous semimartingale. Almost surely, for every bounded
+	measurable process $H$ (measurable in $(s,\omega)$) and every bounded Borel
+	function $g$,
+	\[
+		\int_0^t H_s\, g(X_s)\,d\langle X\rangle_s = \int_\mathbb{R} g(a) \Big(\int_0^t H_s\, dL^a_s\Big) da .
+	\]
+\end{lemma}
+
+\begin{proof}
+	For $H = 1_{]u,v]}$ this is the difference of the occupation times formula
+	(Theorem~\ref{th6}) at times $t\wedge v$ and $t\wedge u$. The general case
+	follows by the monotone class theorem.
+\end{proof}
+
+\begin{lemma}\label{lem:fv-level}
+	Let $f$ be a continuous function of finite variation on $\mathbb{R}_+$. Then
+	the measure $1_{\{f(s) = 0\}}\,df(s)$ is zero.
+\end{lemma}
+
+\begin{proof}
+	Let $g_n$ be continuous functions with $0\leqslant g_n\leqslant 1$ and
+	$g_n \downarrow 1_{\{0\}}$, and let $G_n(y)=\int_0^y g_n(z)\,dz$. By the chain
+	rule for continuous functions of finite variation,
+	$\int_u^t g_n(f(s))\,df(s) = G_n(f(t)) - G_n(f(u))$, which tends to $0$ since
+	$|G_n(y)| \leqslant \int_{-|y|}^{|y|} g_n \to 0$. By dominated convergence with
+	respect to $|df|$, $\int_u^t 1_{\{f(s)=0\}}\,df(s) = 0$ for all $u<t$.
+\end{proof}
+
+In the next lemma, $L^{0-}(Z) = \lim_{a\uparrow 0}L^a(Z)$ denotes the left local
+time at $0$ of a continuous semimartingale $Z$.
+
+\begin{lemma}\label{lem:max}
+	Let $X^1$ and $X^2$ be continuous semimartingales such that
+	$\Delta = X^1 - X^2$ has finite variation. Let $L^i = L^0(X^i)$,
+	$L^{i,-} = L^{0-}(X^i)$, let $V^1$ be the finite variation part of $X^1$, and let
+	\[
+		Y = X^1\vee X^2, \qquad U = X^1 - (X^2)^+ = X^1 \wedge \Delta .
+	\]
+	Then, as measures on $\mathbb{R}_+$,
+	\begin{enumerate}[label=(\alph*)]
+		\item $dL^0_s(Y) = dL^0_s(U) + 1_{\{X^1_s\leqslant 0\}}\,dL^2_s$;
+		\item $1_{\{\Delta_s>0\}}\,dL^1_s \leqslant dL^0_s(U) \leqslant 1_{\{\Delta_s\geqslant 0\}}\,dL^1_s$
+		      and
+		      $1_{\{\Delta_s>0\}}\,dL^{1,-}_s \leqslant dL^{0-}_s(U) \leqslant 1_{\{\Delta_s\geqslant 0\}}\,dL^{1,-}_s$;
+		\item $dL^0_s(U) - dL^{0-}_s(U) = 2\cdot 1_{\{X^1_s=0,\, X^2_s\leqslant 0\}}\,dV^1_s
+			      - 1_{\{X^1_s=X^2_s=0\}}\,dL^2_s$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	(a) Since $\Delta$ has finite variation, its local time vanishes, and
+	Tanaka's formula gives $Y = X^2 + \Delta^+ = X^2 + \int_0^\cdot 1_{\{\Delta_s > 0\}}\,d\Delta_s$,
+	that is $dY_s = 1_{\{\Delta_s > 0\}}\,dX^1_s + 1_{\{\Delta_s\leqslant 0\}}\,dX^2_s$.
+	By Tanaka's formula,
+	\begin{equation}\label{e22}
+		dY^+_s = 1_{\{X^1_s>0,\, \Delta_s > 0\}}\,dX^1_s + 1_{\{X^2_s>0,\, \Delta_s\leqslant 0\}}\,dX^2_s
+		+ \frac{1}{2}\,dL^0_s(Y).
+	\end{equation}
+	On the other hand, $Y^+ = (X^1)^+\vee(X^2)^+ = (X^2)^+ + U^+$; indeed, if
+	$X^1 > 0$ then $\big((X^1)^+ - (X^2)^+\big)^+ = U^+$, and if $X^1\leqslant 0$ both
+	sides vanish. Now $dU_s = 1_{\{X^2_s\leqslant 0\}}\,dX^1_s + 1_{\{X^2_s>0\}}\,d\Delta_s - \frac{1}{2}\,dL^2_s$,
+	and $\{U>0\} = \{X^1 > 0,\, \Delta > 0\}$. Since $dL^2$ is carried by
+	$\{X^2 = 0\}$, on which $U = X^1$, Tanaka's formula for $(X^2)^+$ and $U^+$ gives
+	\begin{equation}\label{e23}
+		dY^+_s = 1_{\{X^1_s>0,\, \Delta_s > 0\}}\,dX^1_s + 1_{\{X^2_s>0,\, \Delta_s\leqslant 0\}}\,dX^2_s
+		+ \frac{1}{2}\,1_{\{X^1_s\leqslant 0\}}\,dL^2_s + \frac{1}{2}\,dL^0_s(U).
+	\end{equation}
+	Comparing \eqref{e22} and \eqref{e23} gives (a).
+
+	(b) The martingale part of $U$ is $\int 1_{\{X^2\leqslant 0\}}\,dM$, where $M$ is the
+	common martingale part of $X^1$ and $X^2$, and $U = X^1$ on $\{X^2\leqslant 0\}$.
+	By Lemma~\ref{lem:occupation-weighted}, for every bounded Borel $g$,
+	\[
+		\int_0^t g(U_s)\,d\langle U\rangle_s = \int_0^t g(X^1_s)1_{\{X^2_s\leqslant 0\}}\,d\langle X^1\rangle_s
+		= \int_\mathbb{R} g(b)\Big(\int_0^t 1_{\{X^2_s\leqslant 0\}}\,dL^b_s(X^1)\Big)db .
+	\]
+	Since $dL^b(X^1)$ is carried by $\{X^1 = b\}$, on which $X^2\leqslant 0$ if and
+	only if $\Delta \geqslant b$, we get, for almost every $b$ and as measures,
+	$dL^b_s(U) = 1_{\{\Delta_s \geqslant b\}}\,dL^b_s(X^1)$. As $b\downarrow 0$ (resp.\
+	$b\uparrow 0$) outside a null set, $L^b_s(U)\to L^0_s(U)$ (resp.\ $L^{0-}_s(U)$),
+	and $L^b_s(X^1)\to L^1_s$ (resp.\ $L^{1,-}_s$) for every $s$, with continuous
+	limits; hence the corresponding measures on any interval $[u,t]$ converge
+	weakly. For $0<b<\delta$, the set $\{\Delta \geqslant b\}$ contains the open set
+	$\{\Delta > \delta\}$ and is contained in the closed set $\{\Delta\geqslant 0\}$, so by
+	the portmanteau theorem
+	\[
+		1_{\{\Delta>\delta\}}\,dL^1 \leqslant dL^0(U) \leqslant 1_{\{\Delta\geqslant 0\}}\,dL^1,
+	\]
+	and letting $\delta\downarrow 0$ gives the first pair of inequalities. For $b<0$, the
+	set $\{\Delta\geqslant b\}$ contains the open set $\{\Delta > 0\}$ and, for
+	$b'' \leqslant b$, is contained in the closed set $\{\Delta\geqslant b''\}$; letting
+	$b\uparrow 0$ and then $b''\uparrow 0$ gives the second pair.
+
+	(c) By Theorem~\ref{th8}, $dL^0(U) - dL^{0-}(U) = 2\cdot 1_{\{U=0\}}\,dV^U$, where
+	$dV^U = 1_{\{X^2\leqslant 0\}}\,dV^1 + 1_{\{X^2>0\}}\,d\Delta - \frac{1}{2}\,dL^2$ is the
+	finite variation part of $U$. On $\{X^2\leqslant 0\}$ we have $U = X^1$; on
+	$\{X^2 > 0\}$ we have $U = \Delta$ and $1_{\{\Delta = 0\}}\,d\Delta = 0$ by
+	Lemma~\ref{lem:fv-level}; and on the support of $dL^2$ we have $U = X^1$. This gives (c).
+\end{proof}
+
+\begin{proposition}\label{pro:sup}
+	Let $X^1$ and $X^2$ be two solutions of \eqref{eq21}, defined on the same
+	space with the same Brownian motion $B$ and the same initial value $x$.
+	Then $X^1 - X^2$ has finite variation, and $X^1\vee X^2$ is also a solution
+	of \eqref{eq21}.
+\end{proposition}
+
+\begin{proof}
+	The difference $\Delta = X^1 - X^2 = \int_0^\cdot \alpha(s)\,d(L^1_s - L^2_s)$ has
+	finite variation, so its local time vanishes, and as in the proof of
+	Lemma~\ref{lem:max}(a),
+	\[
+		X^1 \vee X^2 = X^2 + \int_0^\cdot 1_{\{\Delta_s > 0\}}\,d\Delta_s .
+	\]
+	Since $dL^1$ is carried by $\{X^1 = 0\}$, on which $\Delta > 0$ if and only if
+	$X^2 < 0$, and $dL^2$ is carried by $\{X^2 = 0\}$, on which $\Delta\leqslant 0$ if
+	and only if $X^1 \leqslant 0$, we get
+	\[
+		X^1_t \vee X^2_t = x + B_t + \int_0^t \alpha(s)\,d\Lambda_s,
+		\qquad
+		\Lambda_t = \int_0^t 1_{\{X^2_s < 0\}}\,dL^1_s + \int_0^t 1_{\{X^1_s \leqslant 0\}}\, dL^2_s .
+	\]
+	It remains to show that $\int_0^t \alpha(s)\,dL^0_s(X^1\vee X^2) = \int_0^t\alpha(s)\,d\Lambda_s$.
+	Let $T_0 = \{s : X^1_s = X^2_s = 0\}$. By Lemma~\ref{lem:max}(a) and (b),
+	$dL^0(X^1\vee X^2) = d\Lambda + d\theta$, where $\theta$ is increasing and
+	$0\leqslant d\theta\leqslant 1_{T_0}\,dL^1$; similarly
+	$dL^{0-}(U) = 1_{\{\Delta>0\}}\,dL^{1,-} + d\theta^-$ with
+	$0\leqslant d\theta^- \leqslant 1_{T_0}\,dL^{1,-}$. By \eqref{eq:jump21},
+	$dL^{1,-} = (1-2\alpha)\,dL^1$, and $dV^1 = \alpha\,dL^1$. Inserting this in
+	Lemma~\ref{lem:max}(c) gives
+	\[
+		d\theta - d\theta^- = 2\alpha\, 1_{T_0}\,dL^1 - 1_{T_0}\,dL^2 .
+	\]
+	By Lemma~\ref{lem:fv-level} applied to $\Delta$,
+	$1_{\{\Delta = 0\}}\,\alpha\,(dL^1 - dL^2) = 0$, so $dL^1 = dL^2$ on
+	$T_0\cap\{\alpha\neq 0\}$. There,
+	\[
+		d\theta = d\theta^- - (1-2\alpha)\,dL^1 \leqslant (1-2\alpha)\,dL^1 - (1-2\alpha)\,dL^1 = 0 ,
+	\]
+	hence $1_{\{\alpha\neq 0\}}\,d\theta = 0$ and $\int_0^t \alpha(s)\,d\theta_s = 0$. Therefore
+	$X^1\vee X^2 = x + B + \int_0^\cdot\alpha(s)\,dL^0_s(X^1\vee X^2)$.
+\end{proof}
+
+\begin{proposition}\label{pro:lawtopath}
+	If uniqueness in law holds for \eqref{eq21}, then pathwise uniqueness holds
+	for \eqref{eq21}.
+\end{proposition}
+
+\begin{proof}
+	Let $X^1$ and $X^2$ be two solutions with the same Brownian motion and
+	initial value. By Proposition~\ref{pro:sup}, $Y = X^1 \vee X^2$ is a solution,
+	so $Y$ and $X^1$ have the same law. Since $Y \geqslant X^1$, for every $t$,
+	$\E[\arctan Y_t - \arctan X^1_t] = 0$ with a nonnegative integrand, hence
+	$Y_t = X^1_t$ almost surely. By continuity, $Y$ and $X^1$ are
+	indistinguishable, and similarly for $X^2$. Hence $X^1 = X^2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{th21}]
+	By Proposition~\ref{pro:lawtopath}, it suffices to prove uniqueness in law.
+	Let $X$ be a solution, $L = L^0(X)$ and $\hat{L} = \hat{L}^0(X)$.
+
+	\emph{Step 1: the law of $(|X|, L)$ is determined.} By the occupation times
+	formula, $\int_0^t 1_{\{X_s = 0\}}\,ds = 0$. The process
+	$\beta_t = \int_0^t \widehat{\sgn}(X_s)\,dB_s$ is therefore a continuous local
+	martingale with $\langle\beta\rangle_t = t$, hence a Brownian motion. By the
+	symmetric Tanaka formula, and since $\widehat{\sgn}(0) = 0$ and $dL$ is
+	carried by $\{X = 0\}$,
+	\[
+		|X_t| = |x| + \int_0^t \widehat{\sgn}(X_s)\,dX_s + \hat{L}_t = |x| + \beta_t + \hat{L}_t .
+	\]
+	The process $\hat{L}$ is continuous, increasing, and $d\hat{L}$ is carried by
+	$\{|X| = 0\}$, so by Lemma~\ref{lem:skorokhod},
+	$\hat{L}_t = \sup_{s\leqslant t}(-|x| - \beta_s)\vee 0$, and $(|X|, \hat{L})$ is a
+	deterministic functional of the Brownian motion $\beta$. Finally, by
+	\eqref{eq:jump21} and since $1-\alpha(s)\geqslant \frac{1}{2}$,
+	\[
+		L_t = \int_0^t \frac{d\hat{L}_s}{1-\alpha(s)} .
+	\]
+	Hence the law of $(|X|, L)$ is uniquely determined. In particular
+	$\E L_t \leqslant 2\E\hat{L}_t \leqslant 2\E\sup_{s\leqslant t}|\beta_s| < \infty$.
+
+	\emph{Step 2: the law of $X_t$ is determined for every $t$.} For
+	$\lambda \in \mathbb{R}$, let $g_t(\lambda)=\E\exp(i\lambda X_t)$. By It\^o's
+	formula, and since $e^{i\lambda X_s} = 1$ on the support of $dL$,
+	\[
+		e^{i\lambda X_t} = e^{i\lambda x} + i\lambda\int_0^t e^{i\lambda X_s}\,dB_s
+		+ i\lambda \int_0^t \alpha(s)\,dL_s - \frac{\lambda^2}{2}\int_0^t e^{i\lambda X_s}\,ds .
+	\]
+	The stochastic integral is a martingale, so taking expectations,
+	\[
+		g_t(\lambda)=e^{i\lambda x} - \frac{\lambda^2}{2}\int_0^t g_s(\lambda)\,ds+i\lambda h(t),
+		\qquad h(t)=\E\Big[\int_0^t \alpha(s)\,dL_s\Big] .
+	\]
+	By Step~1, $h$ is uniquely determined, and this linear integral equation has
+	a unique solution by Gronwall's lemma, namely
+	$g_t(\lambda) = e^{-\lambda^2 t/2}e^{i\lambda x} + i\lambda\int_0^t e^{-\lambda^2 (t-s)/2}\,dh(s)$.
+	Hence the law of $X_t$ is uniquely determined, for every initial value $x$ and
+	every function $\alpha$ satisfying the assumptions.
+
+	\emph{Step 3: the finite-dimensional distributions are determined.} Fix
+	$s\geqslant 0$. Under a regular conditional distribution of the solution given
+	$\mathcal{F}_s$, the process $(X_{s+u})_{u\geqslant 0}$ is, for almost every
+	$\omega$, a solution of \eqref{eq21} started at $X_s(\omega)$, with $\alpha$
+	replaced by $\alpha(s+\cdot)$ and driven by the Brownian motion
+	$(B_{s+u}-B_s)_{u\geqslant 0}$; this uses that
+	$L_{s+u} - L_s = L^0_u\big(X_{s+\cdot}\big)$. This is the classical argument of
+	Stroock and Varadhan, see \citet[Section~5.4]{KaratzasShreve1991}. By Step~2,
+	the conditional law of $X_{s+u}$ given $\mathcal{F}_s$ is therefore a kernel
+	$Q_{s,s+u}(X_s,\cdot)$ which does not depend on the solution. By induction on
+	the number of times, the finite-dimensional distributions of $X$ are uniquely
+	determined, and so is its law.
+\end{proof}
+
+\begin{remark}
+	The condition $\alpha \leqslant \frac{1}{2}$ is essential. By
+	\eqref{eq:jump21}, the left local time of a solution is
+	$L^{0-}_t = \int_0^t (1-2\alpha(s))\,dL_s$, which must be increasing. Suppose
+	for instance that $\alpha(s) > \frac{1}{2}$ for all $s$. Then $L^{0-}$ is both
+	nonnegative and decreasing with $L^{0-}_0 = 0$, so $L^{0-} = 0$, and therefore
+	$L = 0$ since $1-2\alpha < 0$. Then $X = x + B$, whose local time at $0$ is not
+	identically zero, a contradiction: \eqref{eq21} has no solution.
+\end{remark}
+
+We now extend Theorem~\ref{th21} to equations with general diffusion and drift
+coefficients.
+
+\begin{theorem}\label{th:general21}
+	Let $\alpha$ be as in Theorem~\ref{th21}, and let $\sigma$ and $b$ be bounded
+	Borel functions on $\mathbb{R}$ such that $\sigma$ is Lipschitz continuous and
+	$\sigma \geqslant \varepsilon$ for some constant $\varepsilon > 0$. Then pathwise
+	uniqueness holds for the equation
+	\begin{equation}\label{e28}
+		X_t=x+\int_0^t \sigma (X_s)\,dB_s + \int_0^t b(X_s)\,ds + \int_0^t \alpha (s)\,dL^0_s(X) .
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	We reduce to the case $\sigma = 1$. Let $h(x)=\int_0^x \frac{dy}{\sigma (y)}$.
+	Since $1/\sigma$ is Lipschitz and takes values in
+	$[1/\|\sigma\|_\infty, 1/\varepsilon]$, $h$ is a strictly increasing $C^1$
+	bijection of $\mathbb{R}$ with $h(0) = 0$, and $h'$ is Lipschitz, so that $h''$
+	exists in the sense of distributions and is a bounded function
+	$\phi = -\sigma'/\sigma^2$.
+
+	Let $X$ be a solution of \eqref{e28}, $L = L^0(X)$ and $Y = h(X)$. By the
+	It\^o--Tanaka formula and the occupation times formula, and since $X = 0$ on
+	the support of $dL$,
+	\[
+		Y_t = h(x) + B_t + \int_0^t \Big(\frac{b}{\sigma} + \frac{1}{2}\sigma^2\phi\Big)(X_s)\,ds
+		+ \int_0^t \frac{\alpha(s)}{\sigma(0)}\,dL_s .
+	\]
+	We now compute the local time of $Y$. Since $d\langle Y\rangle_s = ds$ and
+	$d\langle X\rangle_s = \sigma^2(X_s)\,ds$, Corollary~\ref{cor1} and the
+	occupation times formula give
+	\[
+		L^0_t(Y) = \lim_{\varepsilon\downarrow 0}\frac{1}{\varepsilon}\int_0^t 1_{\{0\leqslant X_s < h^{-1}(\varepsilon)\}}\,
+		\frac{d\langle X\rangle_s}{\sigma^2(X_s)}
+		= \lim_{\varepsilon\downarrow 0}\frac{1}{\varepsilon}\int_0^{h^{-1}(\varepsilon)} \frac{L^a_t}{\sigma^2(a)}\,da
+		= \frac{L_t}{\sigma(0)},
+	\]
+	by right continuity of $a\mapsto L^a_t$ and since $(h^{-1})'(0) = \sigma(0)$.
+	Hence $Y$ solves
+	\begin{equation}\label{e29}
+		Y_t=h(x)+B_t+\int_0^t \hat{b}(Y_s)\,ds+\int_0^t \alpha (s)\,dL^0_s(Y),
+		\qquad
+		\hat{b} = \Big(\frac{b}{\sigma}+ \frac{1}{2}\sigma^2 \phi\Big)\circ h^{-1},
+	\end{equation}
+	and conversely $X = h^{-1}(Y)$ solves \eqref{e28} if $Y$ solves \eqref{e29}.
+	It therefore suffices to prove pathwise uniqueness for \eqref{e29}, whose drift
+	$\hat{b}$ is bounded and Borel.
+
+	\emph{Uniqueness in law.} Let $Y$ be a solution of \eqref{e29} and $T > 0$.
+	By Girsanov's theorem, under the probability $\mathbb{Q}$ with density
+	$\exp\big(-\int_0^T \hat{b}(Y_s)\,dB_s - \frac{1}{2}\int_0^T \hat{b}^2(Y_s)\,ds\big)$,
+	the process $W = B + \int_0^\cdot \hat{b}(Y_s)\,ds$ is a Brownian motion on
+	$[0,T]$, and $Y = h(x) + W + \int_0^\cdot\alpha(s)\,dL^0_s(Y)$. By the proof of
+	Theorem~\ref{th21}, the law of $Y$ under $\mathbb{Q}$ is uniquely determined.
+	Since $W$ is a functional of $Y$, the density
+	$d\mathbb{P}/d\mathbb{Q} = \exp\big(\int_0^T \hat{b}(Y_s)\,dW_s - \frac{1}{2}\int_0^T \hat{b}^2(Y_s)\,ds\big)$
+	is a functional of $Y$, so the law of $Y$ under $\mathbb{P}$ on $[0,T]$ is also
+	uniquely determined.
+
+	\emph{The maximum of two solutions is a solution.} If $Y^1$ and $Y^2$ are two
+	solutions with the same Brownian motion and initial value, then
+	$\Delta = Y^1 - Y^2 = \int_0^\cdot(\hat{b}(Y^1_s) - \hat{b}(Y^2_s))\,ds + \int_0^\cdot \alpha(s)\,d(L^0_s(Y^1) - L^0_s(Y^2))$
+	has finite variation. The proof of Proposition~\ref{pro:sup} applies with two
+	additional observations: the drift terms satisfy
+	$1_{\{Y^1>Y^2\}}\hat{b}(Y^1) + 1_{\{Y^1\leqslant Y^2\}}\hat{b}(Y^2) = \hat{b}(Y^1\vee Y^2)$,
+	and they do not contribute to the measures appearing in Lemma~\ref{lem:max}(c)
+	and Lemma~\ref{lem:fv-level}, because $\int_0^t 1_{\{Y^1_s = 0\}}\,ds = 0$ by the
+	occupation times formula and $\hat{b}(Y^1) = \hat{b}(Y^2)$ on $\{\Delta = 0\}$.
+	Hence $Y^1\vee Y^2$ is a solution of \eqref{e29}.
+
+	The argument of Proposition~\ref{pro:lawtopath} then gives pathwise uniqueness.
+\end{proof}

@@ -1,0 +1,64 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+The simplest stochastic differential equation involving the local time of the
+unknown process is
+\[
+	X_t = x + W_t + \beta\hat{L}^0_t(X),
+\]
+where $W$ is a Brownian motion and $\hat{L}^0(X)$ is the symmetric local time
+of $X$ at $0$. Its solution, the skew Brownian motion, behaves like a Brownian
+motion away from $0$, but each excursion away from $0$ is positive with
+probability $\frac{1+\beta}{2}$ and negative with probability
+$\frac{1-\beta}{2}$. Its transition semigroup solves the heat equation on each
+side of $0$, together with a \emph{transmission condition} at $0$:
+\[
+	(1+\beta)\frac{\partial u}{\partial x}(t,0^+) = (1-\beta)\frac{\partial u}{\partial x}(t,0^-).
+\]
+Equations of this kind model diffusion in media with an interface, where the
+coefficients of the equation are discontinuous. This thesis studies
+stochastic differential equations involving local times, and the parabolic
+partial differential equations with transmission condition associated with
+them.
+
+\begin{description}
+	\item[Chapter~1] recalls the construction and the main properties of the
+	      local time of a continuous semimartingale: Tanaka's formula, the
+	      Itô--Tanaka formula, the occupation times formula, the regularity of
+	      local times in the space variable, the approximation by down-crossings,
+	      and the symmetric local time, which is used throughout the rest of the
+	      thesis.
+	\item[Chapter~2] studies the time-inhomogeneous equation
+	      \[
+		      X_t = x + B_t + \int_0^t \alpha(s)\,dL_s ,
+	      \]
+	      where $L$ is the local time of $X$ at $0$. Following the method of Le
+	      Gall, we prove pathwise uniqueness when $\alpha\leqslant\frac12$, and
+	      extend the result to equations of the form
+	      \[
+		      X_t = x + \int_0^t \sigma(X_s)\,dB_s + \int_0^t b(X_s)\,ds + \int_0^t \alpha(s)\,dL_s .
+	      \]
+	\item[Chapter~3] follows \citet{LeGall1984}. It first gives pathwise
+	      uniqueness results for equations $dX_t = \sigma(t,X_t)\,dB_t + b(t,X_t)\,dt$
+	      with non-Lipschitz coefficients. These are then used to study the
+	      singular equation
+	      \[
+		      dX_t = \phi(X_t)\,dB_t + \int_{\mathbb{R}} \nu(da)\,d_t\hat{L}^a_t(X),
+	      \]
+	      which involves the local times of the unknown process at all levels.
+	      The chapter ends with limit theorems and comparison theorems.
+	\item[Chapter~4] recalls, following \citet{Durrett1996}, how Brownian
+	      motion gives the solutions of the heat equation and of the
+	      Feynman--Kac equation.
+	\item[Chapter~5] applies these ideas to the skew Brownian motion. We
+	      construct it by random flipping of the excursions of a reflected
+	      Brownian motion, compute the joint law of the process and its local
+	      time, deduce its transition density, and derive the partial
+	      differential equation with transmission condition that it solves.
+\end{description}
+
+\paragraph{About this version.} This thesis was written in 2018 for the
+Master's degree M2PA at Cadi Ayyad University. The present version was
+revised in 2026: the mathematical errors of the original have been
+corrected, several proofs have been completed, and references have been
+added. The list of corrections is kept with the source files.
