@@ -17,8 +17,6 @@
 *.mtc[0-9]*
 *.xdv
 
-# Built thesis PDF (published via GitHub Releases instead)
-/main.pdf
 /build/
 
 # Python
